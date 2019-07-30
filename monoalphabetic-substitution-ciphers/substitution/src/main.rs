@@ -3,6 +3,10 @@ use std::process::exit;
 use std::fs;
 
 fn main() {
+    // Static variables
+    static ASCII_LOWER: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+    // Start
     let args: Vec<String> = env::args().collect();
 
     let filename = &args[1];
@@ -18,15 +22,6 @@ fn main() {
 
     let file_contents = fs::read_to_string(filename)
         .expect("Unable to read file."); 
-
-    static ASCII_LOWER: [char; 26] = [
-    'a', 'b', 'c', 'd', 'e', 
-    'f', 'g', 'h', 'i', 'j', 
-    'k', 'l', 'm', 'n', 'o',
-    'p', 'q', 'r', 's', 't', 
-    'u', 'v', 'w', 'x', 'y', 
-    'z',
-    ];
 
     let key_vector:Vec<char> = key.chars().collect();
     let file_contents_lowercase = file_contents.clone().to_ascii_lowercase();
