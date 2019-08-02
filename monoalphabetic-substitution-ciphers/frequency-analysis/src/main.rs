@@ -1,56 +1,78 @@
-use std::env;
+#[macro_use] extern crate structopt;
+
+use structopt::StructOpt;
 use std::fs;
 use std::collections::HashMap;
 
+#[derive(Debug, StructOpt)]
+#[structopt(name = "frequency-analysis", about = "A rust implementation of a frequency analysis technique upon monoalphabetic substitution ciphers.")]
+struct Args {
+    #[structopt(long = "input", help = "The path to a file containing the ciphertext to perform frequency analysis upon.")]
+    input: String,
+}
+
+static ASCII: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+static EXPECTED_LETTER_FREQUENCY: [char; 26] = ['e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z'];
+
 fn main() {
-    // Static variables.
-    static ASCII_LOWER: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-    static EXPECTED_LETTER_FREQUENCY: [char; 26] = ['e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z'];
+    let args = Args::from_args(); 
 
-    // Read in ciphertext. 
-    let args: Vec<String> = env::args().collect();
+    let ciphertext:String= read_file(args.input);
+ 
+    let mut letter_frequency:HashMap<char, u32> = calculate_letter_frequency(ciphertext.clone());
+    let mut plaintext_chars:Vec<char> = ciphertext.clone().chars().collect();
 
-    let ciphertext_filename = &args[1];
+    for i in 0..26 {  
+        let cipher_character:char = get_next_most_frequent(letter_frequency.clone());
+    	letter_frequency.remove(&cipher_character);
+        plaintext_chars = replace_all_occurances(ciphertext.clone(), plaintext_chars, cipher_character, EXPECTED_LETTER_FREQUENCY[i]); 
+    }
 
-    let ciphertext = fs::read_to_string(ciphertext_filename)
+    let plaintext:String = plaintext_chars.iter().collect();
+    println!("{}", plaintext);
+}
+
+fn read_file(filename:String) -> String {
+    let file_contents = fs::read_to_string(filename)
         .expect("Unable to read file.");
 
-    // Setup frequency hashmap.
-    let mut letter_count:HashMap<char, u32> = HashMap::new();
+    return file_contents.to_ascii_lowercase();
+}
 
-    // Count the frequency.
-    for (_index, character) in ciphertext.to_ascii_lowercase().chars().enumerate() {
-        if ASCII_LOWER.contains(&character) {
-            let counter = letter_count.entry(character).or_insert(0);
+fn calculate_letter_frequency(ciphertext:String) -> HashMap<char, u32> {
+    let mut letter_frequency:HashMap<char, u32> = HashMap::new();
+
+    for (_index, character) in ciphertext.chars().enumerate() {
+        if ASCII.contains(&character) {
+            let counter = letter_frequency.entry(character).or_insert(0);
             *counter += 1;
         }
     }
 
-    let mut plaintext_chars:Vec<char> = ciphertext.to_ascii_lowercase().clone().chars().collect();
+    return letter_frequency;
+}
 
-	// print out in order.
-    for i in 0..26 {  
-        let mut cipher_character:char = *(letter_count.keys().next()).unwrap();
-        let mut largest_value = *(letter_count.get(&cipher_character)).unwrap();
+fn get_next_most_frequent(letter_frequency:HashMap<char, u32>) -> char {
+    let mut cipher_character:char = *(letter_frequency.keys().next()).unwrap();
+    let mut largest_value = *(letter_frequency.get(&cipher_character)).unwrap();
 
-        for key in letter_count.keys() {
-            if *(letter_count.get(key).unwrap()) > largest_value {
-                cipher_character = *key;
-                largest_value = *(letter_count.get(key)).unwrap();
-            }
+    for key in letter_frequency.keys() {
+        if *(letter_frequency.get(key).unwrap()) > largest_value {
+            cipher_character = *key;
+            largest_value = *(letter_frequency.get(key)).unwrap();
         }
-	
-        // Replace chracter with expected.
-        for (index, character) in ciphertext.to_ascii_lowercase().chars().enumerate() {
-            if character == cipher_character {
-                plaintext_chars[index] = EXPECTED_LETTER_FREQUENCY[i];
-            }
-        }
-
-		letter_count.remove(&cipher_character);
     }
 
-    let plaintext:String = plaintext_chars.iter().collect();
+    return cipher_character;
+}
 
-    println!("{}", plaintext);
+fn replace_all_occurances(orginal_copy:String, mut modifying_copy:Vec<char>, replacing:char, replace_with:char) -> Vec<char> { 
+    for (index, character) in orginal_copy.chars().enumerate() {
+        if character == replacing {
+            modifying_copy[index] = replace_with; 
+        }
+    }
+
+    return modifying_copy;
 }
