@@ -1,45 +1,84 @@
-use std::env;
+#[macro_use] extern crate structopt;
+
 use std::process::exit;
 use std::fs;
+use structopt::StructOpt;
 
-fn main() {
-    // Static variables
-    static ASCII_LOWER: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+#[derive(Debug, StructOpt)]
+#[structopt(name = "monoalphabetic-substitution", about = "A rust implementation of a monoalphabetic substitution cipher.")]
+struct Args {
+    #[structopt(long = "key", help = "The path to a file containing the key to use in the substitution.")]
+    key: String,
 
-    // Start
-    let args: Vec<String> = env::args().collect();
+    #[structopt(long = "input", help = "The path to a file containing the text to be used as input to the substitution.")] 
+    input: String,
 
-    let filename = &args[1];
-    let key = &args[2];
+    #[structopt(long = "decipher", help = "A flag to specify if the file content should be deciphered.")]
+    decipher: bool,
+}
 
-    println!("\nPerforming subsitution on context of file {}.", filename);
-    println!("Using key {} for subsitution.\n", key);
+static ASCII: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-    if key.len() != 26 {
-        println!("The key must be of length 26.");
-        exit(1);
+fn main() { 
+    let args = Args::from_args();
+
+    let file_contents = read_file(args.input);
+    let key = validate_key(args.key);
+
+    let subsituted_file_contents;
+
+    if args.decipher {
+        subsituted_file_contents = encipher(invert_key(key), file_contents);
+    } else {
+        subsituted_file_contents = encipher(key, file_contents);
+    } 
+
+    println!("{}", subsituted_file_contents);
+}
+
+fn invert_key(key:Vec<char>) -> Vec<char> {
+    let mut inverting_key = ASCII.clone().to_vec();
+
+    for x in 0..26 {
+        for i in 0..26 {
+            if key[x] == ASCII[i] {
+                inverting_key[i] = ASCII[x]
+            }
+        }
     }
 
-    let file_contents = fs::read_to_string(filename)
-        .expect("Unable to read file."); 
+    return inverting_key;
+}
 
-    let key_vector:Vec<char> = key.chars().collect();
-    let file_contents_lowercase = file_contents.clone().to_ascii_lowercase();
-    let mut subsituting_file_contents:Vec<char>= file_contents_lowercase.chars().collect();
+fn encipher(key:Vec<char>, file_contents:String) -> String { 
+    let mut subsituting_file_contents: Vec<char> = file_contents.chars().collect();
 
-    for x in 0..26 { 
-        println!("{} -> {}", ASCII_LOWER[x], key_vector[x]);
-        
-        for (index, character) in file_contents_lowercase.chars().enumerate() { 
-            if character == ASCII_LOWER[x] {
-                subsituting_file_contents[index] = key_vector[x];  
+    for x in 0..26 {  
+        for (index, character) in file_contents.chars().enumerate() { 
+            if character == ASCII[x] {
+                subsituting_file_contents[index] = key[x];  
             }
         } 
     } 
 
+    return subsituting_file_contents.iter().collect();
+}
 
-    let subsituted_file_contents:String = subsituting_file_contents.iter().collect();
+fn read_file(filename:String) -> String {
+    let file_contents = fs::read_to_string(filename)
+        .expect("Unable to read file.");
 
-    println!("\n{}", subsituted_file_contents);
+    return file_contents.to_ascii_lowercase();
+}
 
+fn validate_key(key:String) -> Vec<char> {
+    let key:String = (read_file(key)).trim().to_string(); 
+    println!("{}", key);
+
+    if key.len() != 26 {
+        println!("The key must be of length 26.");
+         exit(1);
+    }
+
+    return key.chars().collect();
 }
