@@ -1,0 +1,17 @@
+image: archlinux/base
+
+stages:
+    - build
+
+build:
+    stage: build
+    before_script:
+        - pacman -Sy --noconfirm
+        - pacman -S rust --noconfirm
+    script:
+        - cd monoalphabetic-substitution-ciphers/frequency-analysis/
+        - cargo build
+        - cd ../../
+        - cd monoalphabetic-substitution-ciphers/substitution/
+        - cargo build
+
