@@ -7,6 +7,7 @@ build:
     stage: build
     before_script:
         - pacman -Sy --noconfirm
+        - pacman -S base-devel --noconfirm
         - pacman -S rust --noconfirm
     script:
         - cd monoalphabetic-substitution-ciphers/frequency-analysis/
