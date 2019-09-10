@@ -8,11 +8,18 @@ build:
     before_script:
         - pacman -Sy --noconfirm
         - pacman -S base-devel --noconfirm
-        - pacman -S rust --noconfirm
+        - pacman -S rust --noconfirm 
     script:
-        - cd monoalphabetic-substitution-ciphers/frequency-analysis/
+        - cd monoalphabetic-substitution-ciphers/
+        - cd substitution/
         - cargo build
+        - cargo test
+        - cd ../
+        - cd frequency-analysis/
+        - cargo build
+        - cargo test
         - cd ../../
-        - cd monoalphabetic-substitution-ciphers/substitution/
-        - cargo build
-
+    artifacts:
+        paths:
+            - monoalphabetic-substitution-ciphers/substitution/target/substitution
+            - monoalphabetic-substitution-ciphers/frequency-analysis/target/frequency-analysis
