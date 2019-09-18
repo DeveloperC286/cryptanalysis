@@ -5,15 +5,15 @@ use std::fs;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
-#[structopt(name = "monoalphabetic-substitution", about = "A rust implementation of a monoalphabetic substitution cipher.")]
+#[structopt(name = "monoalphabetic-substitution-cipher", about = "A rust implementation of a monoalphabetic substitution cipher.")]
 struct Args {
     #[structopt(long = "key", help = "The path to a file containing the key to use in the substitution.")]
     key: String,
 
-    #[structopt(long = "input", help = "The path to a file containing the text to be used as input to the substitution.")] 
+    #[structopt(long = "input", help = "The path to a file containing the text to be used as input to the substitution cipher.")] 
     input: String,
 
-    #[structopt(long = "decipher", help = "A flag to specify if the file content should be deciphered.")]
+    #[structopt(long = "decipher", help = "A flag to specify if the file content should be deciphered instead of enciphered.")]
     decipher: bool,
 }
 
@@ -81,4 +81,22 @@ fn validate_key(key:String) -> Vec<char> {
     }
 
     return key.chars().collect();
+}
+
+#[cfg(test)]
+mod tests { 
+    use super::*;
+
+    #[test]
+    fn test_invert_key() {
+        //given
+        let key = vec!['o', 'f', 'w', 'c', 'u', 'n', 'y', 't', 'm', 'j', 'q', 'h', 'k', 'v', 'a', 's', 'l', 'p', 'z', 'b', 'd', 'x', 'i', 'e', 'g', 'r'];
+        let expected_inverted_key = vec!['o', 't', 'd', 'u', 'x', 'b', 'y', 'l', 'w', 'j', 'm', 'q', 'i', 'f', 'a', 'r', 'k', 'z', 'p', 'h', 'e', 'n', 'c', 'v', 'g', 's'];
+        
+        //when
+        let inverted_key = invert_key(key);
+
+        //then
+        assert_eq!(expected_inverted_key, inverted_key);
+    }
 }
