@@ -10,16 +10,12 @@ build:
         - pacman -S base-devel --noconfirm
         - pacman -S rust --noconfirm 
     script:
-        - cd monoalphabetic-substitution-ciphers/
-        - cd substitution/
+        - cd monoalphabetic-substitution-cipher/ 
+        - cd monoalphabetic-substitution-cipher/ 
         - cargo build
         - cargo test
         - cd ../
         - cd frequency-analysis/
         - cargo build
         - cargo test
-        - cd ../../
-    artifacts:
-        paths:
-            - monoalphabetic-substitution-ciphers/substitution/target/debug/substitution 
-            - monoalphabetic-substitution-ciphers/frequency-analysis/target/debug/frequency-analysis 
+
