@@ -1,5 +1,3 @@
-#[macro_use] extern crate structopt;
-
 use std::process::exit;
 use std::fs;
 use structopt::StructOpt;
@@ -86,17 +84,17 @@ fn validate_key(key:String) -> Vec<char> {
 #[cfg(test)]
 mod tests { 
     use super::*;
+    use rstest::rstest_parametrize;
 
-    #[test]
-    fn test_invert_key() {
-        //given
-        let key = vec!['o', 'f', 'w', 'c', 'u', 'n', 'y', 't', 'm', 'j', 'q', 'h', 'k', 'v', 'a', 's', 'l', 'p', 'z', 'b', 'd', 'x', 'i', 'e', 'g', 'r'];
-        let expected_inverted_key = vec!['o', 't', 'd', 'u', 'x', 'b', 'y', 'l', 'w', 'j', 'm', 'q', 'i', 'f', 'a', 'r', 'k', 'z', 'p', 'h', 'e', 'n', 'c', 'v', 'g', 's'];
-        
+
+    #[rstest_parametrize(expected, key,
+        case(vec!['o', 't', 'd', 'u', 'x', 'b', 'y', 'l', 'w', 'j', 'm', 'q', 'i', 'f', 'a', 'r', 'k', 'z', 'p', 'h', 'e', 'n', 'c', 'v', 'g', 's'], vec!['o', 'f', 'w', 'c', 'u', 'n', 'y', 't', 'm', 'j', 'q', 'h', 'k', 'v', 'a', 's', 'l', 'p', 'z', 'b', 'd', 'x', 'i', 'e', 'g', 'r']),
+    )]
+    fn test_invert_key(expected:Vec<char>, key:Vec<char>) {  
         //when
         let inverted_key = invert_key(key);
 
         //then
-        assert_eq!(expected_inverted_key, inverted_key);
+        assert_eq!(expected, inverted_key);
     }
 }
