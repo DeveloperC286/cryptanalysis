@@ -71,7 +71,6 @@ fn read_file(filename:String) -> String {
 
 fn validate_key(key:String) -> Vec<char> {
     let key:String = (read_file(key)).trim().to_string(); 
-    println!("{}", key);
 
     if key.len() != 26 {
         println!("The key must be of length 26.");
@@ -88,13 +87,16 @@ mod tests {
 
 
     #[rstest_parametrize(expected, key,
-        case(vec!['o', 't', 'd', 'u', 'x', 'b', 'y', 'l', 'w', 'j', 'm', 'q', 'i', 'f', 'a', 'r', 'k', 'z', 'p', 'h', 'e', 'n', 'c', 'v', 'g', 's'], vec!['o', 'f', 'w', 'c', 'u', 'n', 'y', 't', 'm', 'j', 'q', 'h', 'k', 'v', 'a', 's', 'l', 'p', 'z', 'b', 'd', 'x', 'i', 'e', 'g', 'r']),
+        case("otduxbylwjmqifarkzphencvgs", "ofwcunytmjqhkvaslpzbdxiegr"),
+        case("pqgitynxwrovjlkmfsduhzebca", "zxyswqcudmonpgkabjretlihfv"),
+        case("nkczrjsyfqtliaxhuowvebdmpg", "nvcwuizpmfblxaryjegkqtsohd"),
     )]
-    fn test_invert_key(expected:Vec<char>, key:Vec<char>) {  
+    fn test_invert_key(expected:&str, key:&str) {  
         //when
-        let inverted_key = invert_key(key);
+        let inverted_key = invert_key(key.chars().collect());
+        let expected_vector:Vec<char>= expected.chars().collect();
 
         //then
-        assert_eq!(expected, inverted_key);
+        assert_eq!(expected_vector, inverted_key);
     }
 }
