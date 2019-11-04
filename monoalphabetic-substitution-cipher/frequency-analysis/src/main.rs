@@ -74,3 +74,41 @@ fn replace_all_occurances(orginal_copy:&str, mut modifying_copy:Vec<char>, repla
 
     return modifying_copy;
 }
+
+
+#[cfg(test)]
+mod tests { 
+    use super::*;
+
+    #[test]
+    fn test_calculate_letter_frequency() {
+        //given
+        let mut expected:HashMap<char, u32> = HashMap::new();
+        expected.insert('a', 3);
+        expected.insert('b', 1);
+        expected.insert('c', 1);
+ 
+        //when
+        let letter_frequency = calculate_letter_frequency("abaca");
+        
+        //then
+        assert_eq!(expected, letter_frequency);
+    }
+
+    #[test]
+    fn test_get_next_most_frequent() {
+        //given
+        let mut letter_frequency:HashMap<char, u32> = HashMap::new();
+        letter_frequency.insert('a', 13);
+        letter_frequency.insert('b', 73);
+        letter_frequency.insert('c', 52);
+        
+        let expected = 'b';
+
+        //when
+        let most_frequent_letter = get_next_most_frequent(&letter_frequency);
+
+        //then 
+        assert_eq!(expected, most_frequent_letter); 
+    }
+}
