@@ -4,8 +4,8 @@ A rust implementation of a frequency analysis technique upon monoalphabetic subs
 ## Installation
 Tested on Arch GNU/Linux
 <ul>
-    <li><b>sudo pacman -Syu base-devel rust</b> Installs rust, cargo and all required t      ooling.</li>
-    <li><b>cargo build --release</b> Compile the Rust code into an optimised binary, re      ady for usage.</li>
+    <li><b>sudo pacman -Syu base-devel rust</b> Installs rust, cargo and all required tooling.</li>
+    <li><b>cargo build --release</b> Compile the Rust code into an optimised binary, ready for usage.</li>
 </ul>
 
 ## Arguments

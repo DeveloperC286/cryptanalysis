@@ -28,7 +28,7 @@ monoalphabetic-substitution-cipher --key ../examples/The-Adventures-of-Sherlock-
 
 Decipher the ciphertext The-Adventures-of-Sherlock-Holmes.ciphertext with the key The-Adventures-of-Sherlock-Holmes.key that was used to create the ciphertext from the plaintext.
 
-````
+```
 monoalphabetic-substitution-cipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext --decipher
 ```
 

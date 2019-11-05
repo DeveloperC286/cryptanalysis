@@ -5,21 +5,31 @@ Monoalphabetic substitution ciphers or just substitution ciphers are one of the 
 Substitution ciphers are simple in their implementation, each plaintext letter is designated a corrosponding ciphertext letter. To perform the encryption then every plaintext letter is convert to its corrosponding ciphertext letter. Then to decrypt the data to reveal the plaintext the reverse is done, the ciphertext letter is changed to its corrosponding plaintext letter.
 
 e.g.
+
 Plaintext : Hello World
 
 Plaintext Alphabet        - ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
 Ciphertext Alphabet (key) - BCDEFGHIJKLMNOPQRSTUVWZYZA 
 
 H -> I
+
 E -> F
+
 L -> M
+
 L -> M
+
 O -> P
 
-W -> Z 
+W -> Z
+
 O -> P
+
 R -> S
+
 L -> M
+
 D -> E
 
 Ciphertext : IFMMP ZPSME
