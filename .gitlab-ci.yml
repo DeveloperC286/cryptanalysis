@@ -1,21 +1,46 @@
 image: archlinux/base
 
+
 stages:
-    - monoalphabetic-substitution-cipher 
+    - builds
+    - tests
+
 
 monoalphabetic-substitution-cipher:
-    stage: monoalphabetic-substitution-cipher 
+    stage: builds
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S base-devel --noconfirm
-        - pacman -S rust --noconfirm 
+        - pacman -S base-devel rust --noconfirm
     script:
-        - cd monoalphabetic-substitution-cipher/ 
-        - cd monoalphabetic-substitution-cipher/ 
+        - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
         - cargo build
-        - cargo test
-        - cd ../
-        - cd frequency-analysis/
+
+
+monoalphabetic-substitution-cipher-frequency-analysis:
+    stage: builds
+    before_script:
+        - pacman -Sy --noconfirm
+        - pacman -S base-devel rust --noconfirm
+    script:
+        - cd monoalphabetic-substitution-cipher/frequency-analysis
         - cargo build
+
+
+monoalphabetic-substitution-cipher:
+    stage: tests
+    before_script:
+        - pacman -Sy --noconfirm
+        - pacman -S base-devel rust --noconfirm
+    script:
+        - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
         - cargo test
 
+
+monoalphabetic-substitution-cipher-frequency-analysis:
+    stage: tests
+    before_script:
+        - pacman -Sy --noconfirm
+        - pacman -S base-devel rust --noconfirm
+    script:
+        - cd monoalphabetic-substitution-cipher/frequency-analysis
+        - cargo test
