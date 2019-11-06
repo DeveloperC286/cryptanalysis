@@ -111,4 +111,37 @@ mod tests {
         //then 
         assert_eq!(expected, most_frequent_letter); 
     }
+
+    #[test]
+    fn test_replace_all_occurances_single_round() {
+        //given
+        let orginal_copy = "abcde";
+        let expected:Vec<char> = "ebcde".chars().collect();
+
+        //when
+        let returned = replace_all_occurances(&orginal_copy, orginal_copy.clone().chars().collect(), 'a', 'e');
+
+        //then
+        assert_eq!(expected, returned);
+    }
+
+    #[test]
+    fn test_replace_all_occurances_multiple_rounds() {
+        //given
+        let orginal_copy = "abcdea";
+        let first_expected:Vec<char> = "ebcdee".chars().collect();
+        let secound_expected:Vec<char> = "ebcdae".chars().collect();
+
+        //when
+        let first_returned = replace_all_occurances(&orginal_copy, orginal_copy.clone().chars().collect(), 'a', 'e');
+
+        //then
+        assert_eq!(first_expected, first_returned);
+
+        //when
+        let secound_returned = replace_all_occurances(&orginal_copy, first_returned, 'e', 'a');
+
+        //then
+        assert_eq!(secound_expected, secound_returned);
+    }
 }
