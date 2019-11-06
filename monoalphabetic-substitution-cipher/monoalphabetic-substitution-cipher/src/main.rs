@@ -68,7 +68,7 @@ fn main() {
         subsituted_file_contents = encipher(key, file_contents);
     } 
 
-    println!("{}", subsituted_file_contents);
+    print!("{}", subsituted_file_contents);
 }
 
 fn invert_key(key:Vec<char>) -> Vec<char> {
