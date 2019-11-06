@@ -6,7 +6,7 @@ stages:
     - tests
 
 
-monoalphabetic-substitution-cipher:
+monoalphabetic-substitution-cipher-build:
     stage: builds
     before_script:
         - pacman -Sy --noconfirm
@@ -16,7 +16,7 @@ monoalphabetic-substitution-cipher:
         - cargo build
 
 
-monoalphabetic-substitution-cipher-frequency-analysis:
+monoalphabetic-substitution-cipher-frequency-analysis-build:
     stage: builds
     before_script:
         - pacman -Sy --noconfirm
@@ -26,7 +26,7 @@ monoalphabetic-substitution-cipher-frequency-analysis:
         - cargo build
 
 
-monoalphabetic-substitution-cipher:
+monoalphabetic-substitution-cipher-test:
     stage: tests
     before_script:
         - pacman -Sy --noconfirm
@@ -36,7 +36,7 @@ monoalphabetic-substitution-cipher:
         - cargo test
 
 
-monoalphabetic-substitution-cipher-frequency-analysis:
+monoalphabetic-substitution-cipher-frequency-analysis-test:
     stage: tests
     before_script:
         - pacman -Sy --noconfirm
