@@ -28,7 +28,7 @@ fn main() {
     }
 
     let plaintext:String = plaintext_chars.iter().collect();
-    println!("{}", plaintext);
+    print!("{}", plaintext);
 }
 
 fn read_file(filename:String) -> String {
