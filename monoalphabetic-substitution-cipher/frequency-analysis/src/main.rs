@@ -9,7 +9,7 @@ struct Args {
     input: String,
 }
 
-static ASCII: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+static ALPHABET: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 static EXPECTED_LETTER_FREQUENCY: [char; 26] = ['e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z'];
 
@@ -42,7 +42,7 @@ fn calculate_letter_frequency(ciphertext:&str) -> HashMap<char, u32> {
     let mut letter_frequency:HashMap<char, u32> = HashMap::new();
 
     for (_index, character) in ciphertext.chars().enumerate() {
-        if ASCII.contains(&character) {
+        if ALPHABET.contains(&character) {
             let counter = letter_frequency.entry(character).or_insert(0);
             *counter += 1;
         }

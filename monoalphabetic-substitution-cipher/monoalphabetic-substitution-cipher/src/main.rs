@@ -7,7 +7,7 @@ use structopt::StructOpt;
 use std::collections::HashMap;
 
 lazy_static! {
-    static ref ALPHABET: HashMap<char, u32> = {
+    static ref ALPHABET_MAP: HashMap<char, u32> = {
         let mut m = HashMap::new();
         m.insert('a', 1);
         m.insert('b', 2);
@@ -52,7 +52,7 @@ struct Args {
     decipher: bool,
 }
 
-static ASCII: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+static ALPHABET: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 fn main() { 
     let args = Args::from_args();
@@ -72,11 +72,11 @@ fn main() {
 }
 
 fn invert_key(key:Vec<char>) -> Vec<char> {
-    let mut inverting_key = ASCII.clone().to_vec();
+    let mut inverting_key = ALPHABET.clone().to_vec();
 
     for x in 0..key.len() {
-        let i = ALPHABET.get(&key[x]).unwrap()-1;
-        inverting_key[i as usize] = ASCII[x];
+        let i = ALPHABET_MAP.get(&key[x]).unwrap()-1;
+        inverting_key[i as usize] = ALPHABET[x];
     }
 
     return inverting_key;
@@ -86,8 +86,8 @@ fn encipher(key:Vec<char>, file_contents:String) -> String {
     let mut subsituting_file_contents: Vec<char> = file_contents.chars().collect();
 
     for (index, character) in file_contents.chars().enumerate() {
-        if ALPHABET.contains_key(&character) {
-            let i = ALPHABET.get(&character).unwrap()-1;
+        if ALPHABET_MAP.contains_key(&character) {
+            let i = ALPHABET_MAP.get(&character).unwrap()-1;
             subsituting_file_contents[index] = key[i as usize];
         }
     }  
