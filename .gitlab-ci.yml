@@ -10,8 +10,8 @@ stages:
 monoalphabetic-substitution-cipher-build:
     stage: builds
     before_script:
-        - pacman -sy --noconfirm
-        - pacman -s base-devel rust --noconfirm
+        - pacman -Sy --noconfirm
+        - pacman -S base-devel rust --noconfirm
     script:
         - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
         - cargo build
@@ -50,8 +50,8 @@ monoalphabetic-substitution-cipher-frequency-analysis-unit-test:
 monoalphabetic-substitution-cipher-integration-test:
     stage: integration-tests 
     before_script:
-        - pacman -sy --noconfirm
-        - pacman -s base-devel rust diffutils --noconfirm
+        - pacman -Sy --noconfirm
+        - pacman -S base-devel rust diffutils --noconfirm
     script:
         - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
         - cargo build --release
