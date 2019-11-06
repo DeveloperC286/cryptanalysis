@@ -47,7 +47,7 @@ monoalphabetic-substitution-cipher-frequency-analysis-unit-test:
         - cargo test
 
 
-monoalphabetic-substitution-cipher-integration-test:
+monoalphabetic-substitution-cipher-encryption-integration-test:
     stage: integration-tests 
     before_script:
         - pacman -Sy --noconfirm
@@ -56,4 +56,16 @@ monoalphabetic-substitution-cipher-integration-test:
         - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
         - cargo build --release
         - target/release/monoalphabetic-substitution-cipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.plaintext > testing.ciphertext
-        - cmp --silent ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext testing.ciphertext 
+        - cmp --silent ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext testing.ciphertext
+
+
+monoalphabetic-substitution-cipher-decryption-integration-test:
+    stage: integration-tests 
+    before_script:
+        - pacman -Sy --noconfirm
+        - pacman -S base-devel rust diffutils --noconfirm
+    script:
+        - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
+        - cargo build --release
+        - target/release/monoalphabetic-substitution-cipher --decipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext > testing.plaintext
+        - cmp --silent ../examples/The-Adventures-of-Sherlock-Holmes.plaintext testing.plaintext
