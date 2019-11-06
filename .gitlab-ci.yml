@@ -69,3 +69,15 @@ monoalphabetic-substitution-cipher-decryption-integration-test:
         - cargo build --release
         - target/release/monoalphabetic-substitution-cipher --decipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext > testing.plaintext
         - cmp --silent ../examples/The-Adventures-of-Sherlock-Holmes.plaintext testing.plaintext
+
+
+monoalphabetic-substitution-cipher-frequency-analysis-integration-test:
+    stage: integration-tests
+    before_script:
+        - pacman -Sy --noconfirm
+        - pacman -S base-devel rust diffutils --noconfirm
+    script:
+        - cd monoalphabetic-substitution-cipher/frequency-analysis
+        - cargo build --release
+        - target/release/frequency-analysis --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext > testing.frequency-analysis
+        - cmp --silent ../examples/The-Adventures-of-Sherlock-Holmes.frequency-analysis testing.frequency-analysis
