@@ -26,16 +26,15 @@ static EXPECTED_LETTER_FREQUENCY: [char; 26] = [
 
 fn main() {
     let args = Args::from_args();
-    let ciphertext: String = read_file(args.input);
-    let plaintext: String = frequency_analysis(ciphertext);
+    let plaintext: String = frequency_analysis(read_file(args.input));
     print!("{}", plaintext);
 }
 
 fn frequency_analysis(ciphertext: String) -> String {
     let mut letter_frequency: HashMap<char, u32> = calculate_letter_frequency(&ciphertext);
-    let mut plaintext_chars: Vec<char> = ciphertext.clone().chars().collect();
+    let mut plaintext_chars: Vec<char> = ciphertext.chars().collect();
 
-    for i in 0..26 {
+    for i in 0..letter_frequency.len() {
         let cipher_character: char = get_next_most_frequent(&letter_frequency);
         letter_frequency.remove(&cipher_character);
         plaintext_chars = replace_all_occurances(&ciphertext, plaintext_chars, cipher_character, EXPECTED_LETTER_FREQUENCY[i]);
@@ -46,7 +45,6 @@ fn frequency_analysis(ciphertext: String) -> String {
 
 fn read_file(filename: String) -> String {
     let file_contents = fs::read_to_string(filename).expect("Unable to read file.");
-
     return file_contents.to_ascii_lowercase();
 }
 
@@ -166,7 +164,7 @@ mod tests {
         let expected: Vec<char> = expected.chars().collect();
 
         //when
-        let returned = replace_all_occurances(&orginal, orginal.clone().chars().collect(), replacing, replace_with);
+        let returned = replace_all_occurances(&orginal, orginal.chars().collect(), replacing, replace_with);
 
         //then
         assert_eq!(expected, returned);
