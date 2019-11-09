@@ -17,13 +17,11 @@ struct Args {
 }
 
 static ALPHABET: [char; 26] = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-    't', 'u', 'v', 'w', 'x', 'y', 'z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
 static EXPECTED_LETTER_FREQUENCY: [char; 26] = [
-    'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c', 'm', 'w', 'f', 'g', 'y', 'p',
-    'b', 'v', 'k', 'j', 'x', 'q', 'z',
+    'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z',
 ];
 
 fn main() {
@@ -40,12 +38,7 @@ fn frequency_analysis(ciphertext: String) -> String {
     for i in 0..26 {
         let cipher_character: char = get_next_most_frequent(&letter_frequency);
         letter_frequency.remove(&cipher_character);
-        plaintext_chars = replace_all_occurances(
-            &ciphertext,
-            plaintext_chars,
-            cipher_character,
-            EXPECTED_LETTER_FREQUENCY[i],
-        );
+        plaintext_chars = replace_all_occurances(&ciphertext, plaintext_chars, cipher_character, EXPECTED_LETTER_FREQUENCY[i]);
     }
 
     return plaintext_chars.iter().collect();
@@ -84,12 +77,7 @@ fn get_next_most_frequent(letter_frequency: &HashMap<char, u32>) -> char {
     return cipher_character;
 }
 
-fn replace_all_occurances(
-    orginal_copy: &str,
-    mut modifying_copy: Vec<char>,
-    replacing: char,
-    replace_with: char,
-) -> Vec<char> {
+fn replace_all_occurances(orginal_copy: &str, mut modifying_copy: Vec<char>, replacing: char, replace_with: char) -> Vec<char> {
     for (index, character) in orginal_copy.chars().enumerate() {
         if character == replacing {
             modifying_copy[index] = replace_with;
@@ -134,7 +122,9 @@ mod tests {
     use super::*;
     use rstest::rstest_parametrize;
 
-    #[rstest_parametrize(string, expected,
+    #[rstest_parametrize(
+        string,
+        expected,
         case("aabac", [('a', 3),('b', 1),('c', 1)].iter().cloned().collect()),
         case("abbdab", [('a', 2),('b', 3),('d', 1)].iter().cloned().collect()),
         case("ccac", [('c', 3),('a', 1)].iter().cloned().collect()),
@@ -147,7 +137,9 @@ mod tests {
         assert_eq!(expected, letter_frequency);
     }
 
-    #[rstest_parametrize(letter_frequency, expected,
+    #[rstest_parametrize(
+        letter_frequency,
+        expected,
         case([('a', 13),('b', 73),('c', 52)].iter().cloned().collect(), 'b'),
         case([('a', 13)].iter().cloned().collect(), 'a'),
         case([('a', 0),('b', 27),('c', 49)].iter().cloned().collect(), 'c'),
@@ -169,31 +161,23 @@ mod tests {
         case("abcde", "abcde", 'z', 'e'),
         case("ab cda", "eb cde", 'a', 'e')
     )]
-    fn test_replace_all_occurances(
-        orginal: &str,
-        expected: &str,
-        replacing: char,
-        replace_with: char,
-    ) {
+    fn test_replace_all_occurances(orginal: &str, expected: &str, replacing: char, replace_with: char) {
         //given
         let expected: Vec<char> = expected.chars().collect();
 
         //when
-        let returned = replace_all_occurances(
-            &orginal,
-            orginal.clone().chars().collect(),
-            replacing,
-            replace_with,
-        );
+        let returned = replace_all_occurances(&orginal, orginal.clone().chars().collect(), replacing, replace_with);
 
         //then
         assert_eq!(expected, returned);
     }
 
-    #[rstest_parametrize(sentence, expected,
+    #[rstest_parametrize(
+        sentence,
+        expected,
         case("this, is.", vec!["this".to_string(), "is".to_string()]),
         case("inside (brackets).", vec!["inside".to_string(), "brackets".to_string()]),
-        case("full. stop, nope. ", vec!["full".to_string(), "stop".to_string(), "nope".to_string()]),
+        case("full. stop, nope. ", vec!["full".to_string(), "stop".to_string(), "nope".to_string()])
     )]
     fn test_get_all_words(sentence: &str, expected: Vec<String>) {
         //when

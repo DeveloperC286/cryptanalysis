@@ -46,12 +46,14 @@ lazy_static! {
 )]
 struct Args {
     #[structopt(
+        short = "k",
         long = "key",
         help = "The path to a file containing the key to use in the substitution."
     )]
     key: String,
 
     #[structopt(
+        short = "i",
         long = "input",
         help = "The path to a file containing the text to be used as input to the substitution cipher."
     )]
@@ -65,8 +67,7 @@ struct Args {
 }
 
 static ALPHABET: [char; 26] = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
-    't', 'u', 'v', 'w', 'x', 'y', 'z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
 fn main() {
@@ -152,9 +153,21 @@ mod tests {
         key,
         enciphering,
         expected,
-        case("gqcerpnjmhtivalosbzwxdkfyu", "defend the east wall of the castle", "erprae wjr rgzw kgii lp wjr cgzwir"),
-        case("ouknpajzbhlvdrqcsxftiemwgy", "the simple substitution cipher is a cipher that has been in use for many hundreds of years", "tzp fbdcvp fiuftbtitbqr kbczpx bf o kbczpx tzot zof uppr br ifp aqx dorg zirnxpnf qa gpoxf"),
-        case("ypzvihmcgqobntajdwkeruxfls", "the simple substitution cipher is quite easy to break", "eci kgnjbi krpkegeregat zgjciw gk drgei iykl ea pwiyo")
+        case(
+            "gqcerpnjmhtivalosbzwxdkfyu",
+            "defend the east wall of the castle",
+            "erprae wjr rgzw kgii lp wjr cgzwir"
+        ),
+        case(
+            "ouknpajzbhlvdrqcsxftiemwgy",
+            "the simple substitution cipher is a cipher that has been in use for many hundreds of years",
+            "tzp fbdcvp fiuftbtitbqr kbczpx bf o kbczpx tzot zof uppr br ifp aqx dorg zirnxpnf qa gpoxf"
+        ),
+        case(
+            "ypzvihmcgqobntajdwkeruxfls",
+            "the simple substitution cipher is quite easy to break",
+            "eci kgnjbi krpkegeregat zgjciw gk drgei iykl ea pwiyo"
+        )
     )]
     fn test_encipher(key: &str, enciphering: &str, expected: &str) {
         //when
