@@ -10,6 +10,7 @@ use structopt::StructOpt;
 )]
 struct Args {
     #[structopt(
+        short = "i",
         long = "input",
         help = "The path to a file containing the ciphertext to perform frequency analysis upon."
     )]
@@ -121,6 +122,22 @@ mod tests {
     use rstest::rstest_parametrize;
 
     #[rstest_parametrize(
+        ciphertext,
+        expected,
+        case(
+            "../examples/The-Adventures-of-Sherlock-Holmes.ciphertext",
+            "../examples/The-Adventures-of-Sherlock-Holmes.frequency-analysis"
+        )
+    )]
+    fn test_frequency_analysis(ciphertext: &str, expected: &str) {
+        //when
+        let plaintext = frequency_analysis(read_file(ciphertext.to_string()));
+
+        //then
+        assert_eq!(read_file(expected.to_string()), plaintext);
+    }
+
+    #[rstest_parametrize(
         string,
         expected,
         case("aabac", [('a', 3),('b', 1),('c', 1)].iter().cloned().collect()),
@@ -164,25 +181,25 @@ mod tests {
         let expected: Vec<char> = expected.chars().collect();
 
         //when
-        let returned = replace_all_occurances(&orginal, orginal.chars().collect(), replacing, replace_with);
+        let replaced = replace_all_occurances(&orginal, orginal.chars().collect(), replacing, replace_with);
 
         //then
-        assert_eq!(expected, returned);
+        assert_eq!(expected, replaced);
     }
 
     #[rstest_parametrize(
         sentence,
         expected,
-        case("this, is.", vec!["this".to_string(), "is".to_string()]),
-        case("inside (brackets).", vec!["inside".to_string(), "brackets".to_string()]),
-        case("full. stop, nope. ", vec!["full".to_string(), "stop".to_string(), "nope".to_string()])
+        case("this, is.", vec!["this", "is"]),
+        case("inside (brackets).", vec!["inside", "brackets"]),
+        case("full. stop, nope. ", vec!["full", "stop", "nope"])
     )]
-    fn test_get_all_words(sentence: &str, expected: Vec<String>) {
+    fn test_get_all_words(sentence: &str, expected: Vec<&str>) {
         //when
-        let returned = get_all_words(&sentence);
+        let words = get_all_words(&sentence);
 
         //then
-        assert_eq!(expected, returned);
+        assert_eq!(expected, words);
     }
 
     #[rstest_parametrize(
@@ -194,10 +211,10 @@ mod tests {
     )]
     fn test_replace_all_non_alphabet(replacing: &str, expected: &str) {
         //when
-        let returned = replace_all_non_alphabet(replacing);
+        let alphabet_only = replace_all_non_alphabet(replacing);
 
         //then
-        assert_eq!(expected.to_string(), returned);
+        assert_eq!(expected, alphabet_only);
     }
 
     #[rstest_parametrize(
@@ -209,9 +226,9 @@ mod tests {
     )]
     fn test_remove_all_extra_spaces(replacing: &str, expected: &str) {
         //when
-        let returned = remove_all_extra_spaces(replacing.to_string());
+        let spaces_removed = remove_all_extra_spaces(replacing.to_string());
 
         //then
-        assert_eq!(expected.to_string(), returned);
+        assert_eq!(expected, spaces_removed);
     }
 }
