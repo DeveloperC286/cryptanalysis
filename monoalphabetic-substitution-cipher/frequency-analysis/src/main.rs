@@ -1,3 +1,4 @@
+use regex::Regex;
 use std::collections::HashMap;
 use std::fs;
 use structopt::StructOpt;
@@ -27,9 +28,12 @@ static EXPECTED_LETTER_FREQUENCY: [char; 26] = [
 
 fn main() {
     let args = Args::from_args();
-
     let ciphertext: String = read_file(args.input);
+    let plaintext: String = frequency_analysis(ciphertext);
+    print!("{}", plaintext);
+}
 
+fn frequency_analysis(ciphertext: String) -> String {
     let mut letter_frequency: HashMap<char, u32> = calculate_letter_frequency(&ciphertext);
     let mut plaintext_chars: Vec<char> = ciphertext.clone().chars().collect();
 
@@ -44,8 +48,7 @@ fn main() {
         );
     }
 
-    let plaintext: String = plaintext_chars.iter().collect();
-    print!("{}", plaintext);
+    return plaintext_chars.iter().collect();
 }
 
 fn read_file(filename: String) -> String {
@@ -96,35 +99,60 @@ fn replace_all_occurances(
     return modifying_copy;
 }
 
+fn get_all_words(sentence: &str) -> Vec<String> {
+    let mut words: Vec<String> = Vec::new();
+    let mut sentence: String = replace_all_non_alphabet(sentence);
+    sentence = remove_all_extra_spaces(sentence);
+
+    for word in sentence.split(' ') {
+        words.push(String::from(word));
+    }
+
+    return words;
+}
+
+fn replace_all_non_alphabet(replacing: &str) -> String {
+    let mut returning = String::from(replacing);
+
+    for (_index, character) in replacing.chars().enumerate() {
+        if !ALPHABET.contains(&character) {
+            returning = returning.replace(character, " ");
+        }
+    }
+
+    return returning;
+}
+
+fn remove_all_extra_spaces(replacing: String) -> String {
+    let returning = replacing.trim();
+    let regex = Regex::new(r"\s+").unwrap();
+    return regex.replace_all(returning, " ").into_owned();
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rstest::rstest_parametrize;
 
-    #[test]
-    fn test_calculate_letter_frequency() {
-        //given
-        let mut expected: HashMap<char, u32> = HashMap::new();
-        expected.insert('a', 3);
-        expected.insert('b', 1);
-        expected.insert('c', 1);
-
+    #[rstest_parametrize(string, expected,
+        case("aabac", [('a', 3),('b', 1),('c', 1)].iter().cloned().collect()),
+        case("abbdab", [('a', 2),('b', 3),('d', 1)].iter().cloned().collect()),
+        case("ccac", [('c', 3),('a', 1)].iter().cloned().collect()),
+    )]
+    fn test_calculate_letter_frequency(string: &str, expected: HashMap<char, u32>) {
         //when
-        let letter_frequency = calculate_letter_frequency("abaca");
+        let letter_frequency = calculate_letter_frequency(string);
 
         //then
         assert_eq!(expected, letter_frequency);
     }
 
-    #[test]
-    fn test_get_next_most_frequent() {
-        //given
-        let mut letter_frequency: HashMap<char, u32> = HashMap::new();
-        letter_frequency.insert('a', 13);
-        letter_frequency.insert('b', 73);
-        letter_frequency.insert('c', 52);
-
-        let expected = 'b';
-
+    #[rstest_parametrize(letter_frequency, expected,
+        case([('a', 13),('b', 73),('c', 52)].iter().cloned().collect(), 'b'),
+        case([('a', 13)].iter().cloned().collect(), 'a'),
+        case([('a', 0),('b', 27),('c', 49)].iter().cloned().collect(), 'c'),
+    )]
+    fn test_get_next_most_frequent(letter_frequency: HashMap<char, u32>, expected: char) {
         //when
         let most_frequent_letter = get_next_most_frequent(&letter_frequency);
 
@@ -132,46 +160,76 @@ mod tests {
         assert_eq!(expected, most_frequent_letter);
     }
 
-    #[test]
-    fn test_replace_all_occurances_single_round() {
+    #[rstest_parametrize(
+        orginal,
+        expected,
+        replacing,
+        replace_with,
+        case("abcde", "ebcde", 'a', 'e'),
+        case("abcde", "abcde", 'z', 'e'),
+        case("ab cda", "eb cde", 'a', 'e')
+    )]
+    fn test_replace_all_occurances(
+        orginal: &str,
+        expected: &str,
+        replacing: char,
+        replace_with: char,
+    ) {
         //given
-        let orginal_copy = "abcde";
-        let expected: Vec<char> = "ebcde".chars().collect();
+        let expected: Vec<char> = expected.chars().collect();
 
         //when
         let returned = replace_all_occurances(
-            &orginal_copy,
-            orginal_copy.clone().chars().collect(),
-            'a',
-            'e',
+            &orginal,
+            orginal.clone().chars().collect(),
+            replacing,
+            replace_with,
         );
 
         //then
         assert_eq!(expected, returned);
     }
 
-    #[test]
-    fn test_replace_all_occurances_multiple_rounds() {
-        //given
-        let orginal_copy = "abcdea";
-        let first_expected: Vec<char> = "ebcdee".chars().collect();
-        let secound_expected: Vec<char> = "ebcdae".chars().collect();
-
+    #[rstest_parametrize(sentence, expected,
+        case("this, is.", vec!["this".to_string(), "is".to_string()]),
+        case("inside (brackets).", vec!["inside".to_string(), "brackets".to_string()]),
+        case("full. stop, nope. ", vec!["full".to_string(), "stop".to_string(), "nope".to_string()]),
+    )]
+    fn test_get_all_words(sentence: &str, expected: Vec<String>) {
         //when
-        let first_returned = replace_all_occurances(
-            &orginal_copy,
-            orginal_copy.clone().chars().collect(),
-            'a',
-            'e',
-        );
+        let returned = get_all_words(&sentence);
 
         //then
-        assert_eq!(first_expected, first_returned);
+        assert_eq!(expected, returned);
+    }
 
+    #[rstest_parametrize(
+        replacing,
+        expected,
+        case(" this!. is  ", " this   is  "),
+        case("(word)", " word "),
+        case(" end(game).", " end game  ")
+    )]
+    fn test_replace_all_non_alphabet(replacing: &str, expected: &str) {
         //when
-        let secound_returned = replace_all_occurances(&orginal_copy, first_returned, 'e', 'a');
+        let returned = replace_all_non_alphabet(replacing);
 
         //then
-        assert_eq!(secound_expected, secound_returned);
+        assert_eq!(expected.to_string(), returned);
+    }
+
+    #[rstest_parametrize(
+        replacing,
+        expected,
+        case(" this  is  ", "this is"),
+        case("   let try   ", "let try"),
+        case("this  is   a ", "this is a")
+    )]
+    fn test_remove_all_extra_spaces(replacing: &str, expected: &str) {
+        //when
+        let returned = remove_all_extra_spaces(replacing.to_string());
+
+        //then
+        assert_eq!(expected.to_string(), returned);
     }
 }
