@@ -1,4 +1,4 @@
-# frequency-analysis 
+# monoalphabetic-substitution-cipher-frequency-analysis 
 A rust implementation of a frequency analysis technique upon monoalphabetic substitution ciphers.
 
 ## Installation

@@ -4,8 +4,7 @@ image: archlinux/base
 stages:
     - format
     - builds
-    - unit-tests
-    - integration-tests
+    - tests
 
 
 format:
@@ -21,13 +20,13 @@ format:
     - done
  
 
-monoalphabetic-substitution-cipher-build:
+monoalphabetic-substitution-encipher-build:
     stage: builds
     before_script:
         - pacman -Sy --noconfirm
         - pacman -S base-devel rust --noconfirm
     script:
-        - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
+        - cd monoalphabetic-substitution-cipher/encipher
         - cargo build
 
 
@@ -41,45 +40,21 @@ monoalphabetic-substitution-cipher-frequency-analysis-build:
         - cargo build
 
 
-monoalphabetic-substitution-cipher-unit-test:
-    stage: unit-tests
+monoalphabetic-substitution-encipher-tests:
+    stage: tests
     before_script:
         - pacman -Sy --noconfirm
         - pacman -S base-devel rust --noconfirm
     script:
-        - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
+        - cd monoalphabetic-substitution-cipher/encipher
         - cargo test
 
 
-monoalphabetic-substitution-cipher-frequency-analysis-unit-test:
-    stage: unit-tests
+monoalphabetic-substitution-cipher-frequency-analysis-tests:
+    stage: tests
     before_script:
         - pacman -Sy --noconfirm
         - pacman -S base-devel rust --noconfirm
     script:
         - cd monoalphabetic-substitution-cipher/frequency-analysis
         - cargo test
-
-
-monoalphabetic-substitution-cipher-encryption-integration-test:
-    stage: integration-tests 
-    before_script:
-        - pacman -Sy --noconfirm
-        - pacman -S base-devel rust diffutils --noconfirm
-    script:
-        - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
-        - cargo build --release
-        - target/release/monoalphabetic-substitution-cipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.plaintext > testing.ciphertext
-        - cmp --silent ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext testing.ciphertext
-
-
-monoalphabetic-substitution-cipher-decryption-integration-test:
-    stage: integration-tests 
-    before_script:
-        - pacman -Sy --noconfirm
-        - pacman -S base-devel rust diffutils --noconfirm
-    script:
-        - cd monoalphabetic-substitution-cipher/monoalphabetic-substitution-cipher
-        - cargo build --release
-        - target/release/monoalphabetic-substitution-cipher --decipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext > testing.plaintext
-        - cmp --silent ../examples/The-Adventures-of-Sherlock-Holmes.plaintext testing.plaintext

@@ -1,4 +1,4 @@
-# monoalphabetic-substitution-cipher
+# monoalphabetic_substitution_cipher_encipher 
 A rust implementation of a monoalphabetic substitution cipher.
 
 ## Installation 

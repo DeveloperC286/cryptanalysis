@@ -1,5 +1,5 @@
 [package]
-name = "monoalphabetic-substitution-cipher"
+name = "monoalphabetic_substitution_cipher_encipher"
 version = "0.1.0"
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
