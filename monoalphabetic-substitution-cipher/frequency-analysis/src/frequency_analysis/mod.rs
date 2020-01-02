@@ -1,5 +1,5 @@
+use super::helper::{ALPHABET, EXPECTED_LETTER_FREQUENCY};
 use std::collections::HashMap;
-use super::helper::{EXPECTED_LETTER_FREQUENCY, ALPHABET};
 
 pub fn frequency_analysis(ciphertext: String) -> String {
     let mut letter_frequency: HashMap<char, u32> = calculate_letter_frequency(&ciphertext);

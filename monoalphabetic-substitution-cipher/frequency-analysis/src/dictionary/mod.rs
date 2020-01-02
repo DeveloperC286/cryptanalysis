@@ -1,7 +1,7 @@
+use super::helper::ALPHABET;
 use regex::Regex;
 use std::collections::HashMap;
 use std::collections::HashSet;
-use super::helper::{ALPHABET};
 
 pub fn one_letter_word_dictionary_corrections(plaintext: String) -> String {
     let mut one_letter_words_frequeny = one_letter_words_frequeny(get_all_words(&plaintext));

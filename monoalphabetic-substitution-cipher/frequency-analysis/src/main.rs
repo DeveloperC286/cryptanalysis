@@ -1,8 +1,8 @@
 use structopt::StructOpt;
 
-mod helper;
-mod frequency_analysis;
 mod dictionary;
+mod frequency_analysis;
+mod helper;
 
 #[derive(Debug, StructOpt)]
 #[structopt(
@@ -17,7 +17,6 @@ struct Args {
     )]
     input: String,
 }
-
 
 fn main() {
     let args = Args::from_args();
