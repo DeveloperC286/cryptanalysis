@@ -55,15 +55,6 @@ version = "1.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
-name = "frequency-analysis"
-version = "0.1.0"
-dependencies = [
- "regex 1.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "rstest 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "structopt 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
 name = "heck"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -93,6 +84,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "memchr"
 version = "2.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "monoalphabetic_substitution_cipher_frequency_analysis"
+version = "0.1.0"
+dependencies = [
+ "regex 1.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rstest 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "structopt 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
+]
 
 [[package]]
 name = "proc-macro-error"

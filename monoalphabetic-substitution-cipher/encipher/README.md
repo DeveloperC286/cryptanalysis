@@ -23,13 +23,13 @@ A flag to specify if the file content should be deciphered. Defaults to false.
 Encipher The-Adventures-of-Sherlock-Holmes.plaintext with the key The-Adventures-of-Sherlock-Holmes.key and write the result to the file The-Adventures-of-Sherlock-Holmes.ciphertext.
 
 ```
-monoalphabetic-substitution-cipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.plaintext >> ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext
+monoalphabetic_substitution_cipher_encipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.plaintext >> ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext
 ```
 
 Decipher the ciphertext The-Adventures-of-Sherlock-Holmes.ciphertext with the key The-Adventures-of-Sherlock-Holmes.key that was used to create the ciphertext from the plaintext.
 
 ```
-monoalphabetic-substitution-cipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext --decipher
+monoalphabetic_substitution_cipher_encipher --key ../examples/The-Adventures-of-Sherlock-Holmes.key --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext --decipher
 ```
 
 ## Technical Explanation
