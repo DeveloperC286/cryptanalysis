@@ -3,14 +3,31 @@ use regex::Regex;
 use std::collections::HashMap;
 use std::collections::HashSet;
 
-pub fn one_letter_word_dictionary_corrections(plaintext: String) -> String {
-    let mut one_letter_words_frequeny = one_letter_words_frequeny(get_all_words(&plaintext));
-    let mut missing_one_letter_words: HashSet<&str> = vec!["a", "i"].into_iter().collect();
+static ONE_LETTER_WORDS: [&str; 2] = ["i", "a"];
 
+pub fn one_letter_word_dictionary_corrections(plaintext: String) -> String {
+    let one_letter_words_frequeny = calculate_one_letter_words_frequeny(get_all_words(&plaintext));
+    let (missing_one_letter_words, missing_one_letter_words_frequeny) = get_missing_one_letter_words(one_letter_words_frequeny);
+
+    return conduct_missing_one_letter_words_predictions(plaintext, missing_one_letter_words, missing_one_letter_words_frequeny);
+}
+
+fn conduct_missing_one_letter_words_predictions(
+    plaintext: String,
+    missing_one_letter_words: HashSet<String>,
+    missing_one_letter_words_frequeny: HashMap<String, u32>,
+) -> String {
     return plaintext;
 }
 
-fn one_letter_words_frequeny(words: Vec<String>) -> HashMap<String, u32> {
+fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<String, u32>) -> (HashSet<String>, HashMap<String, u32>) {
+    let missing_one_letter_words_frequeny = one_letter_words_frequeny.clone();
+    let missing_one_letter_words = HashSet::new();
+
+    return (missing_one_letter_words, missing_one_letter_words_frequeny);
+}
+
+fn calculate_one_letter_words_frequeny(words: Vec<String>) -> HashMap<String, u32> {
     let mut one_letter_words_frequeny: HashMap<String, u32> = HashMap::new();
 
     for word in &words {

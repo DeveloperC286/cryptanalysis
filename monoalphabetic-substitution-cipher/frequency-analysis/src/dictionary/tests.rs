@@ -17,9 +17,9 @@ fn test_one_letter_word_dictionary_corrections(plaintext: &str, expected: &str) 
         case(vec![], [].iter().cloned().collect()),
         case(vec!["lets".to_string(), "be".to_string(), "a".to_string(), "and".to_string()], [("a".to_string(), 1)].iter().cloned().collect()),
     )]
-fn test_one_letter_words_frequeny(words: Vec<String>, expected: HashMap<String, u32>) {
+fn test_calculate_one_letter_words_frequeny(words: Vec<String>, expected: HashMap<String, u32>) {
     //when
-    let one_letter_words_frequeny = one_letter_words_frequeny(words);
+    let one_letter_words_frequeny = calculate_one_letter_words_frequeny(words);
 
     //then
     assert_eq!(expected, one_letter_words_frequeny);
