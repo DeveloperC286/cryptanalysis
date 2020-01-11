@@ -21,8 +21,18 @@ fn conduct_missing_one_letter_words_predictions(
 }
 
 fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<String, u32>) -> (HashSet<String>, HashMap<String, u32>) {
-    let missing_one_letter_words_frequeny = one_letter_words_frequeny.clone();
-    let missing_one_letter_words = HashSet::new();
+    let mut missing_one_letter_words_frequeny = one_letter_words_frequeny.clone();
+    let mut missing_one_letter_words = HashSet::new();
+
+    for word in ONE_LETTER_WORDS.iter() {
+        let one_letter_word = word.to_string();
+
+        if missing_one_letter_words_frequeny.contains_key(&one_letter_word) {
+            missing_one_letter_words_frequeny.remove(&one_letter_word);
+        } else {
+            missing_one_letter_words.insert(one_letter_word);
+        }
+    }
 
     return (missing_one_letter_words, missing_one_letter_words_frequeny);
 }

@@ -11,6 +11,39 @@ fn test_one_letter_word_dictionary_corrections(plaintext: &str, expected: &str) 
 }
 
 #[rstest_parametrize(
+    one_letter_words_frequeny,
+    expected_missing_one_letter_words,
+    expected_missing_one_letter_words_frequeny,
+    case(
+        [("a".to_string(), 3), ("e".to_string(), 1)].iter().cloned().collect(),
+        [("i".to_string())].iter().cloned().collect(),
+        [("e".to_string(), 1)].iter().cloned().collect()
+    ),
+    case(
+        [("t".to_string(), 2), ("e".to_string(), 3)].iter().cloned().collect(),
+        [("a".to_string()), ("i".to_string())].iter().cloned().collect(),
+        [("t".to_string(), 2), ("e".to_string(), 3)].iter().cloned().collect()
+    ),
+    case(
+        [("a".to_string(), 5), ("i".to_string(), 3)].iter().cloned().collect(),
+        [].iter().cloned().collect(),
+        [].iter().cloned().collect()
+    )
+)]
+fn test_get_missing_one_letter_words(
+    one_letter_words_frequeny: HashMap<String, u32>,
+    expected_missing_one_letter_words: HashSet<String>,
+    expected_missing_one_letter_words_frequeny: HashMap<String, u32>,
+) {
+    //when
+    let (missing_one_letter_words, missing_one_letter_words_frequeny) = get_missing_one_letter_words(one_letter_words_frequeny);
+
+    //then
+    assert_eq!(expected_missing_one_letter_words, missing_one_letter_words);
+    assert_eq!(expected_missing_one_letter_words_frequeny, missing_one_letter_words_frequeny);
+}
+
+#[rstest_parametrize(
         words,
         expected,
         case(vec!["a".to_string(), "be".to_string(), "a".to_string(), "and".to_string(), "b".to_string()], [("a".to_string(), 2),("b".to_string(), 1)].iter().cloned().collect()),
