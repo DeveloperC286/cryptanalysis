@@ -1,3 +1,7 @@
+extern crate pretty_env_logger;
+#[macro_use]
+extern crate log;
+
 use std::fs;
 use structopt::StructOpt;
 
@@ -27,11 +31,13 @@ struct Args {
 }
 
 fn main() {
+    pretty_env_logger::init();
     let args = Args::from_args();
     let mut plaintext: String = frequency_analysis::frequency_analysis(helper::read_file(args.input));
     plaintext = dictionary::one_letter_word_dictionary_corrections(plaintext);
 
     if let Some(output) = args.output {
+        info!("Writing output to '{}'.", output);
         write_file(output, plaintext);
     } else {
         print!("{}", plaintext);

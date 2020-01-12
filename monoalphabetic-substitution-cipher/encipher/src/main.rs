@@ -1,3 +1,7 @@
+extern crate pretty_env_logger;
+#[macro_use]
+extern crate log;
+
 use monoalphabetic_substitution_cipher_encipher::{encipher, invert_key};
 use std::fs;
 use std::process::exit;
@@ -38,6 +42,7 @@ struct Args {
 }
 
 fn main() {
+    pretty_env_logger::init();
     let args = Args::from_args();
 
     let file_contents = read_file(args.input);
@@ -46,12 +51,14 @@ fn main() {
     let subsituted_file_contents;
 
     if args.decipher {
+        info!("Deciphering.");
         subsituted_file_contents = encipher(invert_key(key), file_contents);
     } else {
         subsituted_file_contents = encipher(key, file_contents);
     }
 
     if let Some(output) = args.output {
+        info!("Writing output to '{}'.", output);
         write_file(output, subsituted_file_contents);
     } else {
         print!("{}", subsituted_file_contents);

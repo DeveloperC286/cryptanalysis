@@ -42,6 +42,14 @@ fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -
         }
     }
 
+    for missing_one_letter_word in missing_one_letter_words.iter() {
+        trace!("Missing expected word '{}'.", missing_one_letter_word);
+    }
+
+    for (key, value) in missing_one_letter_words_frequeny.iter() {
+        trace!("'{}' word found but not expected with the frequeny {}.", key, value);
+    }
+
     return (missing_one_letter_words, missing_one_letter_words_frequeny);
 }
 
@@ -53,6 +61,10 @@ fn calculate_one_letter_words_frequeny(words: Vec<String>) -> HashMap<char, u32>
             let counter = one_letter_words_frequeny.entry(word.chars().next().unwrap()).or_insert(0);
             *counter += 1;
         }
+    }
+
+    for (key, value) in one_letter_words_frequeny.iter() {
+        trace!("Word '{}' was found {} times.", key, value);
     }
 
     return one_letter_words_frequeny;

@@ -1,3 +1,6 @@
+extern crate pretty_env_logger;
+#[macro_use]
+extern crate log;
 #[macro_use]
 extern crate lazy_static;
 
@@ -48,6 +51,8 @@ pub fn invert_key(key: Vec<char>) -> Vec<char> {
         inverting_key[i as usize] = ALPHABET[x];
     }
 
+    let inverted_key: String = inverting_key.clone().into_iter().collect();
+    trace!("Inverted key to '{}'.", inverted_key);
     return inverting_key;
 }
 
@@ -57,6 +62,7 @@ pub fn encipher(key: Vec<char>, file_contents: String) -> String {
     for (index, character) in file_contents.chars().enumerate() {
         if ALPHABET_MAP.contains_key(&character) {
             let i = ALPHABET_MAP.get(&character).unwrap() - 1;
+            trace!("Changing letter {} at index {} to {}", subsituting_file_contents[index], index, key[i as usize]);
             subsituting_file_contents[index] = key[i as usize];
         }
     }

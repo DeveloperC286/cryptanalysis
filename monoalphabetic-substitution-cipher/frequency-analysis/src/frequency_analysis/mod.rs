@@ -24,6 +24,10 @@ fn calculate_letter_frequency(ciphertext: &str) -> HashMap<char, u32> {
         }
     }
 
+    for (key, value) in letter_frequency.iter() {
+        trace!("Letter '{}' was found {} times.", key, value);
+    }
+ 
     return letter_frequency;
 }
 
