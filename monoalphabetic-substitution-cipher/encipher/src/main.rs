@@ -24,6 +24,13 @@ struct Args {
     input: String,
 
     #[structopt(
+        short = "o",
+        long = "output",
+        help = "The path to a file containing the text output from the substitution cipher."
+    )]
+    output: Option<String>,
+
+    #[structopt(
         long = "decipher",
         help = "A flag to specify if the file content should be deciphered instead of enciphered."
     )]
@@ -44,13 +51,21 @@ fn main() {
         subsituted_file_contents = encipher(key, file_contents);
     }
 
-    print!("{}", subsituted_file_contents);
+    if let Some(output) = args.output {
+        write_file(output, subsituted_file_contents);
+    } else {
+        print!("{}", subsituted_file_contents);
+    }
 }
 
 fn read_file(filename: String) -> String {
     let file_contents = fs::read_to_string(filename).expect("Unable to read file.");
 
     return file_contents.to_ascii_lowercase();
+}
+
+fn write_file(filename: String, content: String) {
+    fs::write(filename, content).expect("Unable to write file.");
 }
 
 fn validate_key(key: String) -> Vec<char> {

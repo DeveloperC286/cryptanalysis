@@ -1,4 +1,4 @@
-use super::helper::{ALPHABET, replace_all_occurances, get_next_most_frequent};
+use super::helper::{get_next_most_frequent, replace_all_occurances, ALPHABET};
 use regex::Regex;
 use std::collections::HashMap;
 use std::collections::HashSet;
@@ -22,7 +22,7 @@ fn missing_one_letter_words_corrections(
     for missing_one_letter_word in missing_one_letter_words {
         //missing one letter words should be in frequency order.
         let next_most_frequent_word = get_next_most_frequent(&missing_one_letter_words_frequeny);
- 
+
         predicted_plaintext = replace_all_occurances(&plaintext, predicted_plaintext, next_most_frequent_word, missing_one_letter_word);
         predicted_plaintext = replace_all_occurances(&plaintext, predicted_plaintext, missing_one_letter_word, next_most_frequent_word);
     }
@@ -32,7 +32,7 @@ fn missing_one_letter_words_corrections(
 
 fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -> (HashSet<char>, HashMap<char, u32>) {
     let mut missing_one_letter_words_frequeny = one_letter_words_frequeny.clone();
-    let mut missing_one_letter_words:HashSet<char>= HashSet::new();
+    let mut missing_one_letter_words: HashSet<char> = HashSet::new();
 
     for one_letter_word in ONE_LETTER_WORDS.iter() {
         if missing_one_letter_words_frequeny.contains_key(&one_letter_word) {
