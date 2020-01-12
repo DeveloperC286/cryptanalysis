@@ -1,8 +1,8 @@
 use super::super::helper;
 use super::*;
-use rstest::rstest_parametrize;
+use rstest::rstest;
 
-#[rstest_parametrize(
+#[rstest(
     ciphertext_file,
     expected_frequency_analysis_text_file,
     case(
@@ -21,7 +21,7 @@ fn test_frequency_analysis(ciphertext_file: &str, expected_frequency_analysis_te
     );
 }
 
-#[rstest_parametrize(
+#[rstest(
         string,
         expected_letter_frequency,
         case("aabac", [('a', 3),('b', 1),('c', 1)].iter().cloned().collect()),

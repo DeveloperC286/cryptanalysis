@@ -1,7 +1,7 @@
 use super::*;
-use rstest::rstest_parametrize;
+use rstest::rstest;
 
-#[rstest_parametrize(plaintext, expected, case("a niw sintinci e maki", "a new sentence i make"))]
+#[rstest(plaintext, expected, case("a niw sintinci e maki", "a new sentence i make"))]
 fn test_one_letter_word_dictionary_corrections(plaintext: &str, expected: &str) {
     //when
     let corrected = one_letter_word_dictionary_corrections(plaintext.to_string());
@@ -10,7 +10,7 @@ fn test_one_letter_word_dictionary_corrections(plaintext: &str, expected: &str) 
     assert_eq!(expected, corrected);
 }
 
-#[rstest_parametrize(
+#[rstest(
     plaintext,
     missing_one_letter_words,
     missing_one_letter_words_frequeny,
@@ -35,7 +35,7 @@ fn test_missing_one_letter_words_corrections(
     assert_eq!(expected_correction, returned_correction);
 }
 
-#[rstest_parametrize(
+#[rstest(
     one_letter_words_frequeny,
     expected_missing_one_letter_words,
     expected_missing_one_letter_words_frequeny,
@@ -72,7 +72,7 @@ fn test_get_missing_one_letter_words(
     );
 }
 
-#[rstest_parametrize(
+#[rstest(
         words,
         expected_one_letter_words_frequeny,
         case(vec!["a".to_string(), "be".to_string(), "a".to_string(), "and".to_string(), "b".to_string()], [('a', 2),('b', 1)].iter().cloned().collect()),
@@ -87,7 +87,7 @@ fn test_calculate_one_letter_words_frequeny(words: Vec<String>, expected_one_let
     assert_eq!(expected_one_letter_words_frequeny, returned_one_letter_words_frequeny);
 }
 
-#[rstest_parametrize(
+#[rstest(
         sentence,
         expected_all_words,
         case("this, is. it's  ", vec!["this", "is", "it's"]),
@@ -102,7 +102,7 @@ fn test_get_all_words(sentence: &str, expected_all_words: Vec<&str>) {
     assert_eq!(expected_all_words, returned_all_words);
 }
 
-#[rstest_parametrize(
+#[rstest(
     replacing,
     expected_alphabet_only,
     case(" this!. is  ", " this   is  "),
@@ -117,7 +117,7 @@ fn test_replace_all_non_alphabet(replacing: &str, expected_alphabet_only: &str) 
     assert_eq!(expected_alphabet_only, returned_alphabet_only);
 }
 
-#[rstest_parametrize(
+#[rstest(
     replacing,
     expected_removed_spaces,
     case(" this  is  ", "this is"),

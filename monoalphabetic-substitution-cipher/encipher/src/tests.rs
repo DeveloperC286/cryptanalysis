@@ -1,7 +1,7 @@
 use super::*;
-use rstest::rstest_parametrize;
+use rstest::rstest;
 
-#[rstest_parametrize(
+#[rstest(
     key,
     expected,
     case("otduxbylwjmqifarkzphencvgs", "ofwcunytmjqhkvaslpzbdxiegr"),
@@ -17,7 +17,7 @@ fn test_invert_key(expected: &str, key: &str) {
     assert_eq!(expected_vector, inverted_key);
 }
 
-#[rstest_parametrize(
+#[rstest(
     key,
     enciphering,
     expected,

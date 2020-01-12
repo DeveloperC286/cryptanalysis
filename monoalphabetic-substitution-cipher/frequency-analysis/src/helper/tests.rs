@@ -1,7 +1,7 @@
 use super::*;
-use rstest::rstest_parametrize;
+use rstest::rstest;
 
-#[rstest_parametrize(
+#[rstest(
         letter_frequency,
         expected_most_frequent_letter,
         case([('a', 13),('b', 73),('c', 52)].iter().cloned().collect(), 'b'),
@@ -16,7 +16,7 @@ fn test_get_next_most_frequent(letter_frequency: HashMap<char, u32>, expected_mo
     assert_eq!(expected_most_frequent_letter, returned_most_frequent_letter);
 }
 
-#[rstest_parametrize(
+#[rstest(
     orginal,
     expected_letter_frequency,
     replacing,

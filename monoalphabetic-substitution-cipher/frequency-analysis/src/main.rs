@@ -1,5 +1,5 @@
-use structopt::StructOpt;
 use std::fs;
+use structopt::StructOpt;
 
 mod dictionary;
 mod frequency_analysis;
