@@ -42,7 +42,7 @@ fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -
     let mut missing_one_letter_words: HashSet<char> = ONE_LETTER_WORDS.clone();
     let mut working_missing_one_letter_words_frequeny = one_letter_words_frequeny.clone();
 
-    for i in (0..ONE_LETTER_WORDS.len()) {
+    for _i in 0..ONE_LETTER_WORDS.len() {
         let next_most_frequent_one_letter_word = get_next_most_frequent(&working_missing_one_letter_words_frequeny);
 
         if ONE_LETTER_WORDS.contains(&next_most_frequent_one_letter_word) {
