@@ -45,37 +45,36 @@ fn main() {
     pretty_env_logger::init();
     let args = Args::from_args();
 
-    let file_contents = read_file(args.input);
-    let key = validate_key(args.key);
+    let file_contents = read_file(&args.input);
+    let key = validate_key(&args.key);
 
     let subsituted_file_contents;
 
     if args.decipher {
-        info!("Deciphering.");
+        info!("Deciphering '{}' with the key '{}'.", args.input, args.key);
         subsituted_file_contents = encipher(invert_key(key), file_contents);
     } else {
+        info!("Enciphering '{}' with the key '{}'.", args.input, args.key);
         subsituted_file_contents = encipher(key, file_contents);
     }
 
     if let Some(output) = args.output {
         info!("Writing output to '{}'.", output);
-        write_file(output, subsituted_file_contents);
+        write_file(&output, subsituted_file_contents);
     } else {
         print!("{}", subsituted_file_contents);
     }
 }
 
-fn read_file(filename: String) -> String {
-    let file_contents = fs::read_to_string(filename).expect("Unable to read file.");
-
-    return file_contents.to_ascii_lowercase();
+fn read_file(filename: &str) -> String {
+    return fs::read_to_string(filename).expect("Unable to read file.").to_ascii_lowercase();
 }
 
-fn write_file(filename: String, content: String) {
+fn write_file(filename: &str, content: String) {
     fs::write(filename, content).expect("Unable to write file.");
 }
 
-fn validate_key(key: String) -> Vec<char> {
+fn validate_key(key: &str) -> Vec<char> {
     let key: String = (read_file(key)).trim().to_string();
 
     if key.len() != 26 {
