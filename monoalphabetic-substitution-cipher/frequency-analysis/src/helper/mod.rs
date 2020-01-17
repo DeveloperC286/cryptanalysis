@@ -9,9 +9,8 @@ pub static EXPECTED_LETTER_FREQUENCY: [char; 26] = [
     'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z',
 ];
 
-pub fn read_file(filename: String) -> String {
-    let file_contents = fs::read_to_string(filename).expect("Unable to read file.");
-    return file_contents.to_ascii_lowercase();
+pub fn read_file(filename: &str) -> String {
+    return fs::read_to_string(filename).expect("Unable to read file.").to_ascii_lowercase();
 }
 
 pub fn get_next_most_frequent(letter_frequency: &HashMap<char, u32>) -> char {
@@ -30,7 +29,7 @@ pub fn get_next_most_frequent(letter_frequency: &HashMap<char, u32>) -> char {
 }
 
 pub fn replace_all_occurances(orginal_copy: &str, mut modifying_copy: Vec<char>, replacing: char, replace_with: char) -> Vec<char> {
-    trace!("Replacing {} with {}.", replacing, replace_with);
+    trace!("Replacing '{}' with '{}'.", replacing, replace_with);
     for (index, character) in orginal_copy.chars().enumerate() {
         if character == replacing {
             modifying_copy[index] = replace_with;

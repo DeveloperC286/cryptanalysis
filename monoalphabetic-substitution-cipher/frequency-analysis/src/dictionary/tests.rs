@@ -53,6 +53,11 @@ fn test_missing_one_letter_words_corrections(
         [('a', 5), ('i', 3)].iter().cloned().collect(),
         [].iter().cloned().collect(),
         [].iter().cloned().collect()
+    ),
+    case(
+        [('n', 5), ('a', 2), ('i', 92), ('o', 97), ('e', 1), ('y', 3), ('p', 2), ('t', 4)].iter().cloned().collect(),
+        ['a'].iter().cloned().collect(),
+        [('o', 97)].iter().cloned().collect()
     )
 )]
 fn test_get_missing_one_letter_words(

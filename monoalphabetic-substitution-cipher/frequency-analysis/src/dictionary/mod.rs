@@ -3,7 +3,14 @@ use regex::Regex;
 use std::collections::HashMap;
 use std::collections::HashSet;
 
-static ONE_LETTER_WORDS: [char; 2] = ['i', 'a'];
+lazy_static! {
+    static ref ONE_LETTER_WORDS: HashSet<char> = {
+        let mut m = HashSet::new();
+        m.insert('i');
+        m.insert('a');
+        m
+    };
+}
 
 pub fn one_letter_word_dictionary_corrections(plaintext: String) -> String {
     let one_letter_words_frequeny = calculate_one_letter_words_frequeny(get_all_words(&plaintext));
@@ -31,15 +38,25 @@ fn missing_one_letter_words_corrections(
 }
 
 fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -> (HashSet<char>, HashMap<char, u32>) {
-    let mut missing_one_letter_words_frequeny = one_letter_words_frequeny.clone();
-    let mut missing_one_letter_words: HashSet<char> = HashSet::new();
+    let mut missing_one_letter_words_frequeny = HashMap::new();
+    let mut missing_one_letter_words: HashSet<char> = ONE_LETTER_WORDS.clone();
+    let mut working_missing_one_letter_words_frequeny = one_letter_words_frequeny.clone();
 
-    for one_letter_word in ONE_LETTER_WORDS.iter() {
-        if missing_one_letter_words_frequeny.contains_key(&one_letter_word) {
-            missing_one_letter_words_frequeny.remove(&one_letter_word);
+    for i in (0..ONE_LETTER_WORDS.len()) {
+        let next_most_frequent_one_letter_word = get_next_most_frequent(&working_missing_one_letter_words_frequeny);
+
+        if ONE_LETTER_WORDS.contains(&next_most_frequent_one_letter_word) {
+            missing_one_letter_words.remove(&next_most_frequent_one_letter_word);
         } else {
-            missing_one_letter_words.insert(*one_letter_word);
+            missing_one_letter_words_frequeny.insert(
+                next_most_frequent_one_letter_word,
+                *working_missing_one_letter_words_frequeny
+                    .get(&next_most_frequent_one_letter_word)
+                    .unwrap(),
+            );
         }
+
+        working_missing_one_letter_words_frequeny.remove(&next_most_frequent_one_letter_word);
     }
 
     for missing_one_letter_word in missing_one_letter_words.iter() {
@@ -64,7 +81,7 @@ fn calculate_one_letter_words_frequeny(words: Vec<String>) -> HashMap<char, u32>
     }
 
     for (key, value) in one_letter_words_frequeny.iter() {
-        trace!("Word '{}' was found {} times.", key, value);
+        trace!("Word '{}' was counted {} times.", key, value);
     }
 
     return one_letter_words_frequeny;

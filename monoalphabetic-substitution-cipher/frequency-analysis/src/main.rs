@@ -2,6 +2,9 @@ extern crate pretty_env_logger;
 #[macro_use]
 extern crate log;
 
+#[macro_use]
+extern crate lazy_static;
+
 use std::fs;
 use structopt::StructOpt;
 
@@ -33,17 +36,18 @@ struct Args {
 fn main() {
     pretty_env_logger::init();
     let args = Args::from_args();
-    let mut plaintext: String = frequency_analysis::frequency_analysis(helper::read_file(args.input));
+    info!("Performing frequency analysis upon '{}'.", args.input);
+    let mut plaintext: String = frequency_analysis::frequency_analysis(helper::read_file(&args.input));
     plaintext = dictionary::one_letter_word_dictionary_corrections(plaintext);
 
     if let Some(output) = args.output {
         info!("Writing output to '{}'.", output);
-        write_file(output, plaintext);
+        write_file(&output, plaintext);
     } else {
         print!("{}", plaintext);
     }
 }
 
-fn write_file(filename: String, content: String) {
+fn write_file(filename: &str, content: String) {
     fs::write(filename, content).expect("Unable to write file.");
 }
