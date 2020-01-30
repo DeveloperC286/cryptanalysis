@@ -2,7 +2,7 @@
 
 Monoalphabetic substitution ciphers or just substitution ciphers are one of the most common and olds methods of encrypting data.
 
-Substitution ciphers are simple in their implementation, each plaintext letter is designated a corrosponding ciphertext letter. To perform the encryption then every plaintext letter is convert to its corrosponding ciphertext letter. Then to decrypt the data to reveal the plaintext the reverse is done, the ciphertext letter is changed to its corrosponding plaintext letter.
+Substitution ciphers are simple in their implementation, each plaintext letter is designated a corresponding ciphertext letter. To perform the encryption then every plaintext letter is convert to its corresponding ciphertext letter. Then to decrypt the data to reveal the plaintext the reverse is done, the ciphertext letter is changed to its corresponding plaintext letter.
 
 e.g.
 
