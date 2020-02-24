@@ -1,16 +1,16 @@
 [package]
 name = "monoalphabetic_substitution_cipher_encipher"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-structopt = "0.3.7"
+structopt = "0.3.9"
 lazy_static = "1.4.0"
 log = "0.4.8"
-pretty_env_logger = "0.3.1"
+pretty_env_logger = "0.4.0"
 
 [dev-dependencies]
-rstest = "0.5.2"
+rstest = "0.5.3"

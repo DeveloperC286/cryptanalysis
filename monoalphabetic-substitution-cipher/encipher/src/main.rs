@@ -30,13 +30,13 @@ struct Args {
     #[structopt(
         short = "o",
         long = "output",
-        help = "The path to a file containing the text output from the substitution cipher."
+        help = "The path to write the output from the substitution cipher too."
     )]
     output: Option<String>,
 
     #[structopt(
         long = "decipher",
-        help = "A flag to specify if the file content should be deciphered instead of enciphered."
+        help = "A flag to specify if the input file's content should be deciphered instead of enciphered."
     )]
     decipher: bool,
 }
@@ -67,18 +67,30 @@ fn main() {
 }
 
 fn read_file(filename: &str) -> String {
-    return fs::read_to_string(filename).expect("Unable to read file.").to_ascii_lowercase();
+    match fs::read_to_string(filename) {
+            Result::Ok(file_content) => file_content.to_ascii_lowercase(),
+            Result::Err(_error_message) => {
+              error!("Unable to read from the file {}.", filename); 
+              exit(1);
+            },
+        } 
 }
 
 fn write_file(filename: &str, content: String) {
-    fs::write(filename, content).expect("Unable to write file.");
+    match fs::write(filename, content) {
+            Result::Ok(_success_message) => (), 
+            Result::Err(_error_message) => {
+              error!("Unable to write the output to the file {}.", filename); 
+              exit(1);
+            },
+    } 
 }
 
 fn validate_key(key: &str) -> Vec<char> {
     let key: String = (read_file(key)).trim().to_string();
 
     if key.len() != 26 {
-        println!("The key must be of length 26.");
+        error!("The key must be of length 26.");
         exit(1);
     }
 
