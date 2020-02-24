@@ -6,6 +6,7 @@ extern crate log;
 extern crate lazy_static;
 
 use std::fs;
+use std::process::exit;
 use structopt::StructOpt;
 
 mod dictionary;
@@ -49,5 +50,11 @@ fn main() {
 }
 
 fn write_file(filename: &str, content: String) {
-    fs::write(filename, content).expect("Unable to write file.");
+    match fs::write(filename, content) {
+            Result::Ok(_success_message) => (), 
+            Result::Err(_error_message) => {
+              error!("Unable to write the output to the file {}.", filename); 
+              exit(1);
+            },
+    } 
 }

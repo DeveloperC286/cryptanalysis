@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::process::exit;
 use std::fs;
 
 pub static ALPHABET: [char; 26] = [
@@ -10,7 +11,13 @@ pub static EXPECTED_LETTER_FREQUENCY: [char; 26] = [
 ];
 
 pub fn read_file(filename: &str) -> String {
-    return fs::read_to_string(filename).expect("Unable to read file.").to_ascii_lowercase();
+    match fs::read_to_string(filename) {
+            Result::Ok(file_content) => file_content.to_ascii_lowercase(),
+            Result::Err(_error_message) => {
+              error!("Unable to read from the file {}.", filename); 
+              exit(1);
+            },
+        } 
 }
 
 pub fn get_next_most_frequent(letter_frequency: &HashMap<char, u32>) -> char {
