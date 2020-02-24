@@ -51,10 +51,10 @@ fn main() {
 
 fn write_file(filename: &str, content: String) {
     match fs::write(filename, content) {
-            Result::Ok(_success_message) => (), 
-            Result::Err(_error_message) => {
-              error!("Unable to write the output to the file {}.", filename); 
-              exit(1);
-            },
-    } 
+        Result::Ok(_success_message) => (),
+        Result::Err(_error_message) => {
+            error!("Unable to write the output to the file {}.", filename);
+            exit(1);
+        }
+    }
 }
