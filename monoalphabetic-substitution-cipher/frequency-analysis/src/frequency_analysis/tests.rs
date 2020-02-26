@@ -1,4 +1,4 @@
-use super::super::helper;
+use super::super::helper::{read_file};
 use super::*;
 use rstest::rstest;
 
@@ -12,11 +12,11 @@ use rstest::rstest;
 )]
 fn test_frequency_analysis(ciphertext_file: &str, expected_frequency_analysis_text_file: &str) {
     //when
-    let returned_frequency_analysis_text = frequency_analysis(helper::read_file(ciphertext_file));
+    let returned_frequency_analysis_text = frequency_analysis(read_file(ciphertext_file));
 
     //then
     assert_eq!(
-        helper::read_file(expected_frequency_analysis_text_file),
+        read_file(expected_frequency_analysis_text_file),
         returned_frequency_analysis_text
     );
 }

@@ -2,15 +2,16 @@ use super::*;
 use rstest::rstest;
 
 #[rstest(
-        words,
+        sentence,
+        length,
         expected_one_letter_words_frequeny,
-        case(vec!["a".to_string(), "be".to_string(), "a".to_string(), "and".to_string(), "b".to_string()], [('a', 2),('b', 1)].iter().cloned().collect()),
-        case(vec![], [].iter().cloned().collect()),
-        case(vec!["lets".to_string(), "be".to_string(), "a".to_string(), "and".to_string()], [('a', 1)].iter().cloned().collect()),
-    )]
-fn test_calculate_one_letter_words_frequeny(words: Vec<String>, expected_one_letter_words_frequeny: HashMap<char, u32>) {
+        case("a be a and b", 1, [('a', 2),('b', 1)].iter().cloned().collect()),
+        case("", 1, [].iter().cloned().collect()),
+        case("lets be a and", 1, [('a', 1)].iter().cloned().collect()),
+)]
+fn test_calculate_word_frequeny_with_length(sentence: &str, length: usize, expected_one_letter_words_frequeny: HashMap<char, u32>) {
     //when
-    let returned_one_letter_words_frequeny = calculate_one_letter_words_frequeny(words);
+    let returned_one_letter_words_frequeny = calculate_word_frequeny_with_length(sentence, length);
 
     //then
     assert_eq!(expected_one_letter_words_frequeny, returned_one_letter_words_frequeny);
@@ -23,7 +24,7 @@ fn test_calculate_one_letter_words_frequeny(words: Vec<String>, expected_one_let
         case("inside (brackets).", vec!["inside", "brackets"]),
         case("full. stop, nope. ", vec!["full", "stop", "nope"]),
         case("example (e.g.)  ", vec!["example", "eg"])
-    )]
+)]
 fn test_get_all_words(sentence: &str, expected_all_words: Vec<&str>) {
     //when
     let returned_all_words = get_all_words(&sentence);

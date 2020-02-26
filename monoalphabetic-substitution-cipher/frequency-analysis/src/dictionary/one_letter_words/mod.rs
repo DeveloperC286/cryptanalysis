@@ -13,7 +13,7 @@ lazy_static! {
 }
 
 pub fn one_letter_word_dictionary_corrections(plaintext: String) -> String {
-    let one_letter_words_frequeny = dictionary_helper::calculate_one_letter_words_frequeny(dictionary_helper::get_all_words(&plaintext));
+    let one_letter_words_frequeny = dictionary_helper::calculate_word_frequeny_with_length(&plaintext, 1); 
     let (missing_one_letter_words, unexpected_one_letter_words_frequeny) = get_missing_one_letter_words(one_letter_words_frequeny); 
 
     return missing_one_letter_words_corrections(plaintext, missing_one_letter_words, unexpected_one_letter_words_frequeny);

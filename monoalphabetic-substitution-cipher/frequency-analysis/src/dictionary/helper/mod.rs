@@ -2,11 +2,12 @@ use super::super::helper::{ALPHABET};
 use regex::Regex;
 use std::collections::HashMap;
 
-pub fn calculate_one_letter_words_frequeny(words: Vec<String>) -> HashMap<char, u32> {
+pub fn calculate_word_frequeny_with_length(sentence: &str, length: usize) -> HashMap<char, u32> {
+    let words = get_all_words(sentence);
     let mut one_letter_words_frequeny: HashMap<char, u32> = HashMap::new();
 
     for word in &words {
-        if word.len() == 1 {
+        if word.len() == length {
             let counter = one_letter_words_frequeny.entry(word.chars().next().unwrap()).or_insert(0);
             *counter += 1;
         }
@@ -19,7 +20,7 @@ pub fn calculate_one_letter_words_frequeny(words: Vec<String>) -> HashMap<char, 
     return one_letter_words_frequeny;
 }
 
-pub fn get_all_words(sentence: &str) -> Vec<String> {
+fn get_all_words(sentence: &str) -> Vec<String> {
     let mut words: Vec<String> = Vec::new();
     let mut sentence: String = replace_all_non_alphabet(sentence);
     sentence = remove_all_extra_spaces(sentence);
