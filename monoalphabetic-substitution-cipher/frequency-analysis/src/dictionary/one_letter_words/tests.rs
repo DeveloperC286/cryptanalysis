@@ -26,6 +26,18 @@ fn test_one_letter_word_dictionary_corrections(plaintext: &str, expected: &str) 
         [('i')].iter().cloned().collect(),
         [('e', 1)].iter().cloned().collect(),
         "a new sentence i make".to_string()
+    ),
+    case(
+        "i collect it".to_string(),
+        [].iter().cloned().collect(),
+        [].iter().cloned().collect(),
+        "i collect it".to_string() 
+    ),
+    case(
+        "i dftf ailes in f vflid stfte aollowing f crfsh".to_string(),
+        [('a')].iter().cloned().collect(),
+        [('f', 2)].iter().cloned().collect(),
+        "i data files in a valid state following a crash".to_string()
     )
 )]
 fn test_missing_one_letter_words_corrections(

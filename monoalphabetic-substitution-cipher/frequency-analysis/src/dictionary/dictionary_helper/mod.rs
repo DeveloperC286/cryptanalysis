@@ -1,4 +1,4 @@
-use super::super::helper::{ALPHABET};
+use super::super::helper;
 use regex::Regex;
 use std::collections::HashMap;
 
@@ -36,7 +36,7 @@ fn replace_all_non_alphabet(replacing: &str) -> String {
     let mut returning = String::from(replacing);
 
     for (_index, character) in replacing.chars().enumerate() {
-        if !ALPHABET.contains(&character) && character != ' ' {
+        if !helper::ALPHABET.contains(&character) && character != ' ' {
             returning = returning.replace(character, "");
         }
     }

@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
-use super::helper as dictionary_helper;
+use super::dictionary_helper;
 use super::super::helper;
 
 lazy_static! {
