@@ -2,12 +2,15 @@ use super::*;
 use rstest::rstest;
 
 #[rstest(
-    plaintext, 
-    expected, 
-    case("a niw sintinci e maki", "a new sentence i make"), 
+    plaintext,
+    expected,
+    case("a niw sintinci e maki", "a new sentence i make"),
     case("i collect it", "i collect it"),
-    case("i dftf ailes in f vflid stfte aollowing f crfsh", "i data files in a valid state following a crash")
-)] 
+    case(
+        "i dftf ailes in f vflid stfte aollowing f crfsh",
+        "i data files in a valid state following a crash"
+    )
+)]
 fn test_one_letter_word_dictionary_corrections(plaintext: &str, expected: &str) {
     //when
     let corrected = one_letter_word_dictionary_corrections(plaintext.to_string());

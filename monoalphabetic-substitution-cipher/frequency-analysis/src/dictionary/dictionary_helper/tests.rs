@@ -39,7 +39,7 @@ fn test_get_all_words(sentence: &str, expected_all_words: Vec<&str>) {
     case(" this!. is  ", " this is  "),
     case("(word)", "word"),
     case(" it's", " its"),
-    case(" e.g. "," eg ")
+    case(" e.g. ", " eg ")
 )]
 fn test_replace_all_non_alphabet(replacing: &str, expected_alphabet_only: &str) {
     //when

@@ -1,7 +1,7 @@
+use super::super::helper;
+use super::dictionary_helper;
 use std::collections::HashMap;
 use std::collections::HashSet;
-use super::dictionary_helper;
-use super::super::helper;
 
 lazy_static! {
     static ref ONE_LETTER_WORDS: HashMap<char, u32> = {
@@ -13,8 +13,8 @@ lazy_static! {
 }
 
 pub fn one_letter_word_dictionary_corrections(plaintext: String) -> String {
-    let one_letter_words_frequeny = dictionary_helper::calculate_word_frequeny_with_length(&plaintext, 1); 
-    let (missing_one_letter_words, unexpected_one_letter_words_frequeny) = get_missing_one_letter_words(one_letter_words_frequeny); 
+    let one_letter_words_frequeny = dictionary_helper::calculate_word_frequeny_with_length(&plaintext, 1);
+    let (missing_one_letter_words, unexpected_one_letter_words_frequeny) = get_missing_one_letter_words(one_letter_words_frequeny);
 
     return missing_one_letter_words_corrections(plaintext, missing_one_letter_words, unexpected_one_letter_words_frequeny);
 }
@@ -30,13 +30,27 @@ fn missing_one_letter_words_corrections(
     for _i in 0..unexpected_one_letter_words_frequeny_length {
         let next_most_frequent_unexpect_word = helper::get_next_most_frequent(&unexpected_one_letter_words_frequeny);
         trace!("Next most frequent unexpected word is '{}'.", next_most_frequent_unexpect_word);
- 
+
         let next_most_frequent_missing_word = get_next_most_frequent_missing_word(&missing_one_letter_words);
         trace!("Next most frequent expected word is '{}'.", next_most_frequent_missing_word);
 
-        trace!("Switching the characters {} and {}.", next_most_frequent_unexpect_word, next_most_frequent_missing_word);
-        predicted_plaintext = helper::replace_all_occurances(&plaintext, predicted_plaintext, next_most_frequent_unexpect_word, next_most_frequent_missing_word);
-        predicted_plaintext = helper::replace_all_occurances(&plaintext, predicted_plaintext, next_most_frequent_missing_word, next_most_frequent_unexpect_word);
+        trace!(
+            "Switching the characters {} and {}.",
+            next_most_frequent_unexpect_word,
+            next_most_frequent_missing_word
+        );
+        predicted_plaintext = helper::replace_all_occurances(
+            &plaintext,
+            predicted_plaintext,
+            next_most_frequent_unexpect_word,
+            next_most_frequent_missing_word,
+        );
+        predicted_plaintext = helper::replace_all_occurances(
+            &plaintext,
+            predicted_plaintext,
+            next_most_frequent_missing_word,
+            next_most_frequent_unexpect_word,
+        );
 
         missing_one_letter_words.remove(&next_most_frequent_missing_word);
         unexpected_one_letter_words_frequeny.remove(&next_most_frequent_unexpect_word);
@@ -45,17 +59,15 @@ fn missing_one_letter_words_corrections(
     return predicted_plaintext.into_iter().collect();
 }
 
-fn get_next_most_frequent_missing_word(
-    missing_one_letter_words: &HashSet<char>
-    ) -> char {
-    let mut working_missing_one_letter_words_frequeny:HashMap<char, u32> = HashMap::new();
+fn get_next_most_frequent_missing_word(missing_one_letter_words: &HashSet<char>) -> char {
+    let mut working_missing_one_letter_words_frequeny: HashMap<char, u32> = HashMap::new();
 
     for missing_one_letter_word in missing_one_letter_words {
         let frequeny = ONE_LETTER_WORDS.get(&missing_one_letter_word).unwrap();
         working_missing_one_letter_words_frequeny.insert(*missing_one_letter_word, *frequeny);
     }
-    
-    return helper::get_next_most_frequent(&working_missing_one_letter_words_frequeny); 
+
+    return helper::get_next_most_frequent(&working_missing_one_letter_words_frequeny);
 }
 
 fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -> (HashSet<char>, HashMap<char, u32>) {
@@ -86,7 +98,7 @@ fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -
         working_missing_one_letter_words_frequeny.remove(&next_most_frequent_one_letter_word);
     }
 
-    for missing_one_letter_word in missing_one_letter_words.iter() { 
+    for missing_one_letter_word in missing_one_letter_words.iter() {
         trace!("Missing expected word '{}'.", missing_one_letter_word);
     }
 
