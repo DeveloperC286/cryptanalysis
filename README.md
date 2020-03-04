@@ -1,4 +1,5 @@
 # Cryptanalysis
+[![pipeline status](https://gitlab.com/DeveloperC/cryptanalysis/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/cryptanalysis/commits/master) ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 After reading Simon Singh's 'The Code Book' I was inspired to implement my own version of the cryptanalysis techniques discussed. This project is my implementation of the various cryptanalysis techniques discussed, implemented in the programming language Rust.
 
