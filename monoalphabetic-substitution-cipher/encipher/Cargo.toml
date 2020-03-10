@@ -1,6 +1,6 @@
 [package]
 name = "monoalphabetic_substitution_cipher_encipher"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
 
@@ -13,4 +13,4 @@ log = "0.4.8"
 pretty_env_logger = "0.4.0"
 
 [dev-dependencies]
-rstest = "0.5.3"
+rstest = "0.6.0"
