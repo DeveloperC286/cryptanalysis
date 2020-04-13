@@ -18,13 +18,13 @@ format:
     - rustfmt $i
     - cmp $i temp.txt
     - done
- 
+
 
 monoalphabetic-substitution-encipher-build:
     stage: builds
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S base-devel rust --noconfirm
+        - pacman -S base-devel libffi rust --noconfirm
     script:
         - cd monoalphabetic-substitution-cipher/encipher
         - cargo build
@@ -34,7 +34,7 @@ monoalphabetic-substitution-cipher-frequency-analysis-build:
     stage: builds
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S base-devel rust --noconfirm
+        - pacman -S base-devel libffi rust --noconfirm
     script:
         - cd monoalphabetic-substitution-cipher/frequency-analysis
         - cargo build
@@ -44,7 +44,7 @@ monoalphabetic-substitution-encipher-tests:
     stage: tests
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S base-devel rust --noconfirm
+        - pacman -S base-devel libffi rust --noconfirm
     script:
         - cd monoalphabetic-substitution-cipher/encipher
         - cargo test
@@ -54,7 +54,7 @@ monoalphabetic-substitution-cipher-frequency-analysis-tests:
     stage: tests
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S base-devel rust --noconfirm
+        - pacman -S base-devel libffi rust --noconfirm
     script:
         - cd monoalphabetic-substitution-cipher/frequency-analysis
         - cargo test
