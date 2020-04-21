@@ -1,4 +1,5 @@
-# monoalphabetic_substitution_cipher_frequency_analysis 
+# monoalphabetic_substitution_cipher_frequency_analysis
+[![pipeline status](https://img.shields.io/badge/Version-0.1.2-blue)](https://gitlab.com/DeveloperC/cryptanalysis/commits/master)
 A rust implementation of a frequency analysis technique upon monoalphabetic substitution ciphers.
 
 ## Installation
@@ -16,10 +17,8 @@ The path to a file containing the ciphertext to perform frequency analysis upon.
 perform frequency analysis upon The-Adventures-of-Sherlock-Holmes.ciphertext and output the predicted plaintext to The-Adventures-of-Sherlock-Holmes.plaintext.
 
 ```
-monoalphabetic_substitution_cipher_frequency_analysis --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext >> 
+monoalphabetic_substitution_cipher_frequency_analysis --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext >>
 ../examples/The-Adventures-of-Sherlock-Holmes.plaintext
 ```
 
-## Technical Explanation 
-
-
+## Technical Explanation

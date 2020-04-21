@@ -1,14 +1,15 @@
-# monoalphabetic_substitution_cipher_encipher 
+# monoalphabetic_substitution_cipher_encipher
+[![pipeline status](https://img.shields.io/badge/Version-0.1.2-blue)](https://gitlab.com/DeveloperC/cryptanalysis/commits/master)
 A rust implementation of a monoalphabetic substitution cipher.
 
-## Installation 
+## Installation
 Tested on Arch GNU/Linux
 <ul>
     <li><b>sudo pacman -Syu base-devel rust</b> Installs rust, cargo and all required tooling.</li>
     <li><b>cargo build --release</b> Compile the Rust code into an optimised binary, ready for usage.</li>
 </ul>
 
-## Arguments 
+## Arguments
 
 key: String
 The path to a file containing the key to use in the substitution.
@@ -33,4 +34,3 @@ monoalphabetic_substitution_cipher_encipher --key ../examples/The-Adventures-of-
 ```
 
 ## Technical Explanation
-
