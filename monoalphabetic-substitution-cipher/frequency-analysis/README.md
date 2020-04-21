@@ -1,5 +1,6 @@
 # monoalphabetic_substitution_cipher_frequency_analysis
 [![pipeline status](https://img.shields.io/badge/Version-0.1.2-blue)](https://gitlab.com/DeveloperC/cryptanalysis/commits/master)
+
 A rust implementation of a frequency analysis technique upon monoalphabetic substitution ciphers.
 
 ## Installation
