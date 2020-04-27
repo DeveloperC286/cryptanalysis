@@ -10,14 +10,14 @@ stages:
 format:
     stage: format
     before_script:
-    - pacman -Sy --noconfirm
-    - pacman -S rust diffutils gawk grep --noconfirm
+        - pacman -Sy --noconfirm
+        - pacman -S rust diffutils gawk grep --noconfirm
     script:
-    - for i in $( du -a . | awk '{print $2}' | grep -i ".rs$" ); do
-    - cp $i temp.txt
-    - rustfmt $i
-    - cmp $i temp.txt
-    - done
+        - for i in $( du -a . | awk '{print $2}' | grep -i "[.]rs$" ); do
+        - cp $i temp.txt
+        - rustfmt $i
+        - cmp $i temp.txt
+        - done
 
 
 monoalphabetic-substitution-encipher-build:
