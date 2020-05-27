@@ -12,7 +12,6 @@ formatting:
         - pacman -S rust diffutils gawk grep --noconfirm
     script:
         - for i in $( du -a ./src/ | awk '{print $2}' | grep -i "[.]rs$" ); do
-        - echo $i
         - cp $i temp.txt
         - rustfmt $i
         - cmp $i temp.txt
@@ -20,6 +19,20 @@ formatting:
     rules:
         - if: $CI_MERGE_REQUEST_ID
         - if: $CI_COMMIT_BRANCH == "master"
+
+
+merge-request-conventional-commits-linting:
+    stage: merge-request-conventional-commits-linting
+    image: node
+    before_script:
+        - npm install -g @commitlint/cli @commitlint/config-conventional
+    script:
+        # Get commit hash from HEAD of origin/master.
+        - MASTER_COMMIT_HASH=`git rev-parse origin/master`
+        # Lint all the commits in the PR.
+        - commitlint --from=$MASTER_COMMIT_HASH
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
 
 
 monoalphabetic-substitution-encipher-build:
