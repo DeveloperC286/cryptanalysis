@@ -53,7 +53,7 @@ pub fn invert_key(key: Vec<char>) -> Vec<char> {
 
     let inverted_key: String = inverting_key.clone().into_iter().collect();
     trace!("Inverted key to '{}'.", inverted_key);
-    return inverting_key;
+    inverting_key
 }
 
 pub fn encipher(key: Vec<char>, file_contents: String) -> String {

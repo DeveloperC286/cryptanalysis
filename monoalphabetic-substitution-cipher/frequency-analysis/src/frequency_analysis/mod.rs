@@ -29,7 +29,7 @@ fn calculate_letter_frequency(ciphertext: &str) -> HashMap<char, u32> {
         trace!("Letter '{}' was counted {} times.", key, value);
     }
 
-    return letter_frequency;
+    letter_frequency
 }
 
 #[cfg(test)]

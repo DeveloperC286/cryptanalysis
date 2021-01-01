@@ -16,7 +16,7 @@ pub fn one_letter_word_dictionary_corrections(plaintext: String) -> String {
     let one_letter_words_frequeny = dictionary_helper::calculate_word_frequeny_with_length(&plaintext, 1);
     let (missing_one_letter_words, unexpected_one_letter_words_frequeny) = get_missing_one_letter_words(one_letter_words_frequeny);
 
-    return missing_one_letter_words_corrections(plaintext, missing_one_letter_words, unexpected_one_letter_words_frequeny);
+    missing_one_letter_words_corrections(plaintext, missing_one_letter_words, unexpected_one_letter_words_frequeny)
 }
 
 fn missing_one_letter_words_corrections(
@@ -56,7 +56,7 @@ fn missing_one_letter_words_corrections(
         unexpected_one_letter_words_frequeny.remove(&next_most_frequent_unexpect_word);
     }
 
-    return predicted_plaintext.into_iter().collect();
+    predicted_plaintext.into_iter().collect()
 }
 
 fn get_next_most_frequent_missing_word(missing_one_letter_words: &HashSet<char>) -> char {
@@ -67,7 +67,7 @@ fn get_next_most_frequent_missing_word(missing_one_letter_words: &HashSet<char>)
         working_missing_one_letter_words_frequeny.insert(*missing_one_letter_word, *frequeny);
     }
 
-    return helper::get_next_most_frequent(&working_missing_one_letter_words_frequeny);
+    helper::get_next_most_frequent(&working_missing_one_letter_words_frequeny)
 }
 
 fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -> (HashSet<char>, HashMap<char, u32>) {
@@ -106,7 +106,7 @@ fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -
         trace!("'{}' word found but not expected with the frequeny {}.", key, value);
     }
 
-    return (missing_one_letter_words, unexpected_one_letter_words_frequeny);
+    (missing_one_letter_words, unexpected_one_letter_words_frequeny)
 }
 
 #[cfg(test)]

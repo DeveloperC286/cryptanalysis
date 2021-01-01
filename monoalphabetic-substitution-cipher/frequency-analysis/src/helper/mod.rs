@@ -32,7 +32,7 @@ pub fn get_next_most_frequent(letter_frequency: &HashMap<char, u32>) -> char {
     }
 
     trace!("Next most frequent is '{}'.", cipher_character);
-    return cipher_character;
+    cipher_character
 }
 
 pub fn replace_all_occurances(orginal_copy: &str, mut modifying_copy: Vec<char>, replacing: char, replace_with: char) -> Vec<char> {
@@ -43,7 +43,7 @@ pub fn replace_all_occurances(orginal_copy: &str, mut modifying_copy: Vec<char>,
         }
     }
 
-    return modifying_copy;
+    modifying_copy
 }
 
 #[cfg(test)]

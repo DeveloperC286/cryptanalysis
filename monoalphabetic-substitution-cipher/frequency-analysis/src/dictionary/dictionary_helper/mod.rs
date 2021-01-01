@@ -17,7 +17,7 @@ pub fn calculate_word_frequeny_with_length(sentence: &str, length: usize) -> Has
         trace!("Word '{}' was counted {} times.", key, value);
     }
 
-    return one_letter_words_frequeny;
+    one_letter_words_frequeny
 }
 
 fn get_all_words(sentence: &str) -> Vec<String> {
@@ -29,7 +29,7 @@ fn get_all_words(sentence: &str) -> Vec<String> {
         words.push(String::from(word));
     }
 
-    return words;
+    words
 }
 
 fn replace_all_non_alphabet(replacing: &str) -> String {
@@ -41,7 +41,7 @@ fn replace_all_non_alphabet(replacing: &str) -> String {
         }
     }
 
-    return returning;
+    returning
 }
 
 fn remove_all_extra_spaces(replacing: String) -> String {
