@@ -1,126 +1,24 @@
 stages:
-    - formatting
-    - conventional-commits-linting
-    - builds
-    - unit-tests
-
-formatting:
-    stage: formatting
-    image: archlinux/base
-    before_script:
-        - pacman -Sy --noconfirm
-        - pacman -S rust diffutils gawk grep --noconfirm
-    script:
-        - for i in $( du -a ./src/ | awk '{print $2}' | grep -i "[.]rs$" ); do
-        - cp $i temp.txt
-        - rustfmt $i
-        - cmp $i temp.txt
-        - done
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
+  - formatting
+  - linting
+  - conventional-commits-linting
+  - compiling
+  - unit-testing
 
 
 conventional-commits-linting:
-    stage: conventional-commits-linting
-    image: rust
-    before_script:
-        - cargo install conventional_commits_linter
-    script:
-        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
-        # Lint all the commits in the branch.
-        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
+  stage: conventional-commits-linting
+  image: rust
+  before_script:
+    - cargo install conventional_commits_linter
+  script:
+    - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
+    # Lint all the commits in the branch.
+    - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT --allow-angular-type-only
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 
 
-monoalphabetic-substitution-encipher-build:
-    stage: builds
-    image: rust
-    script:
-        - cd monoalphabetic-substitution-cipher/encipher
-        - cargo build --verbose
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
-
-
-monoalphabetic-substitution-encipher-build-nightly:
-    stage: builds
-    image: rustlang/rust:nightly
-    script:
-        - cd monoalphabetic-substitution-cipher/encipher
-        - cargo build --verbose
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
-    allow_failure: true
-
-
-monoalphabetic-substitution-cipher-frequency-analysis-build:
-    stage: builds
-    image: rust
-    script:
-        - cd monoalphabetic-substitution-cipher/frequency-analysis
-        - cargo build --verbose
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
-
-
-monoalphabetic-substitution-cipher-frequency-analysis-build-nightly:
-    stage: builds
-    image: rustlang/rust:nightly
-    script:
-        - cd monoalphabetic-substitution-cipher/frequency-analysis
-        - cargo build --verbose
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
-    allow_failure: true
-
-
-monoalphabetic-substitution-encipher-tests:
-    stage: unit-tests
-    image: rust
-    script:
-        - cd monoalphabetic-substitution-cipher/encipher
-        - cargo test --verbose
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
-
-
-monoalphabetic-substitution-encipher-tests-nightly:
-    stage: unit-tests
-    image: rustlang/rust:nightly
-    script:
-        - cd monoalphabetic-substitution-cipher/encipher
-        - cargo test --verbose
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
-    allow_failure: true
-
-
-monoalphabetic-substitution-cipher-frequency-analysis-tests:
-    stage: unit-tests
-    image: rust
-    script:
-        - cd monoalphabetic-substitution-cipher/frequency-analysis
-        - cargo test --verbose
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
-
-
-monoalphabetic-substitution-cipher-frequency-analysis-tests-nightly:
-    stage: unit-tests
-    image: rustlang/rust:nightly
-    script:
-        - cd monoalphabetic-substitution-cipher/frequency-analysis
-        - cargo test --verbose
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
-    allow_failure: true
+include:
+  - local: .gitlab/ci/monoalphabetic-substitution-encipher.yml
+  - local: .gitlab/ci/monoalphabetic-substitution-frequency-analysis.yml
