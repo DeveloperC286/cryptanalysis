@@ -1,7 +1,7 @@
 stages:
+  - conventional-commits-linting
   - formatting
   - linting
-  - conventional-commits-linting
   - compiling
   - unit-testing
 
