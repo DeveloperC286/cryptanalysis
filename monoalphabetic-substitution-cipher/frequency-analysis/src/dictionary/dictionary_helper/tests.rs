@@ -27,7 +27,7 @@ fn test_calculate_word_frequeny_with_length(sentence: &str, length: usize, expec
 )]
 fn test_get_all_words(sentence: &str, expected_all_words: Vec<&str>) {
     //when
-    let returned_all_words = get_all_words(&sentence);
+    let returned_all_words = get_all_words(sentence);
 
     //then
     assert_eq!(expected_all_words, returned_all_words);

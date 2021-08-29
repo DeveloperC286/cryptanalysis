@@ -30,7 +30,7 @@ fn test_replace_all_occurances(orginal: &str, expected_letter_frequency: &str, r
     let expected_letter_frequency: Vec<char> = expected_letter_frequency.chars().collect();
 
     //when
-    let returned_letter_frequency = replace_all_occurances(&orginal, orginal.chars().collect(), replacing, replace_with);
+    let returned_letter_frequency = replace_all_occurances(orginal, orginal.chars().collect(), replacing, replace_with);
 
     //then
     assert_eq!(expected_letter_frequency, returned_letter_frequency);

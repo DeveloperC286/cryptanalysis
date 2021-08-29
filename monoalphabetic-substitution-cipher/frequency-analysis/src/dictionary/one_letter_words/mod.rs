@@ -63,7 +63,7 @@ fn get_next_most_frequent_missing_word(missing_one_letter_words: &HashSet<char>)
     let mut working_missing_one_letter_words_frequeny: HashMap<char, u32> = HashMap::new();
 
     for missing_one_letter_word in missing_one_letter_words {
-        let frequeny = ONE_LETTER_WORDS.get(&missing_one_letter_word).unwrap();
+        let frequeny = ONE_LETTER_WORDS.get(missing_one_letter_word).unwrap();
         working_missing_one_letter_words_frequeny.insert(*missing_one_letter_word, *frequeny);
     }
 
