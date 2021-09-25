@@ -2,7 +2,7 @@ monoalphabetic-substitution-frequency-analysis-formatting:
   stage: formatting
   image: rust
   before_script:
-    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/is_effected/-/jobs/artifacts/0.4.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/is_effected/-/jobs/artifacts/0.4.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
     - is_effected="$(pwd)/is_effected"
     - rustup component add rustfmt
   script:
@@ -18,7 +18,7 @@ monoalphabetic-substitution-frequency-analysis-linting:
   stage: linting
   image: rust
   before_script:
-    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/is_effected/-/jobs/artifacts/0.4.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/is_effected/-/jobs/artifacts/0.4.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
     - is_effected="$(pwd)/is_effected"
     - rustup component add clippy
   script:
@@ -36,7 +36,7 @@ monoalphabetic-substitution-frequency-analysis-compiling:
   stage: compiling
   image: rust
   before_script:
-    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/is_effected/-/jobs/artifacts/0.4.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/is_effected/-/jobs/artifacts/0.4.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
     - is_effected="$(pwd)/is_effected"
   script:
     - cd monoalphabetic-substitution-cipher/frequency-analysis
@@ -54,7 +54,7 @@ monoalphabetic-substitution-frequency-analysis-unit-testing:
   stage: unit-testing
   image: rust
   before_script:
-    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/is_effected/-/jobs/artifacts/0.4.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/is_effected/-/jobs/artifacts/0.4.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
     - is_effected="$(pwd)/is_effected"
   script:
     - cd monoalphabetic-substitution-cipher/frequency-analysis
