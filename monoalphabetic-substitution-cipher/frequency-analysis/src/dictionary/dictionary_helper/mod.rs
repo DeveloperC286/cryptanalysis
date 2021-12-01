@@ -1,6 +1,7 @@
-use super::super::helper;
 use regex::Regex;
 use std::collections::HashMap;
+
+use super::super::helper;
 
 pub fn calculate_word_frequeny_with_length(sentence: &str, length: usize) -> HashMap<char, u32> {
     let words = get_all_words(sentence);
@@ -8,7 +9,9 @@ pub fn calculate_word_frequeny_with_length(sentence: &str, length: usize) -> Has
 
     for word in &words {
         if word.len() == length {
-            let counter = one_letter_words_frequeny.entry(word.chars().next().unwrap()).or_insert(0);
+            let counter = one_letter_words_frequeny
+                .entry(word.chars().next().unwrap())
+                .or_insert(0);
             *counter += 1;
         }
     }

@@ -3,11 +3,13 @@ use std::fs;
 use std::process::exit;
 
 pub static ALPHABET: [char; 26] = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+    't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
 pub static EXPECTED_LETTER_FREQUENCY: [char; 26] = [
-    'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c', 'm', 'w', 'f', 'g', 'y', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z',
+    'e', 't', 'a', 'o', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'c', 'm', 'w', 'f', 'g', 'y', 'p',
+    'b', 'v', 'k', 'j', 'x', 'q', 'z',
 ];
 
 pub fn read_file(filename: &str) -> String {
@@ -35,7 +37,12 @@ pub fn get_next_most_frequent(letter_frequency: &HashMap<char, u32>) -> char {
     cipher_character
 }
 
-pub fn replace_all_occurances(orginal_copy: &str, mut modifying_copy: Vec<char>, replacing: char, replace_with: char) -> Vec<char> {
+pub fn replace_all_occurances(
+    orginal_copy: &str,
+    mut modifying_copy: Vec<char>,
+    replacing: char,
+    replace_with: char,
+) -> Vec<char> {
     trace!("Replacing '{}' with '{}'.", replacing, replace_with);
     for (index, character) in orginal_copy.chars().enumerate() {
         if character == replacing {

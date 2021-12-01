@@ -1,8 +1,8 @@
-extern crate pretty_env_logger;
-#[macro_use]
-extern crate log;
 #[macro_use]
 extern crate lazy_static;
+#[macro_use]
+extern crate log;
+extern crate pretty_env_logger;
 
 use std::collections::HashMap;
 
@@ -40,7 +40,8 @@ lazy_static! {
 }
 
 static ALPHABET: [char; 26] = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+    't', 'u', 'v', 'w', 'x', 'y', 'z',
 ];
 
 pub fn invert_key(key: Vec<char>) -> Vec<char> {

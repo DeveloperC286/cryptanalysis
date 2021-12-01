@@ -1,5 +1,6 @@
-use super::*;
 use rstest::rstest;
+
+use super::*;
 
 #[rstest(
         sentence,
@@ -9,12 +10,19 @@ use rstest::rstest;
         case("", 1, [].iter().cloned().collect()),
         case("lets be a and", 1, [('a', 1)].iter().cloned().collect()),
 )]
-fn test_calculate_word_frequeny_with_length(sentence: &str, length: usize, expected_one_letter_words_frequeny: HashMap<char, u32>) {
+fn test_calculate_word_frequeny_with_length(
+    sentence: &str,
+    length: usize,
+    expected_one_letter_words_frequeny: HashMap<char, u32>,
+) {
     //when
     let returned_one_letter_words_frequeny = calculate_word_frequeny_with_length(sentence, length);
 
     //then
-    assert_eq!(expected_one_letter_words_frequeny, returned_one_letter_words_frequeny);
+    assert_eq!(
+        expected_one_letter_words_frequeny,
+        returned_one_letter_words_frequeny
+    );
 }
 
 #[rstest(

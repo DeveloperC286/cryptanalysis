@@ -1,5 +1,6 @@
-use super::helper;
 use std::collections::HashMap;
+
+use super::helper;
 
 pub fn frequency_analysis(ciphertext: String) -> String {
     let mut letter_frequency: HashMap<char, u32> = calculate_letter_frequency(&ciphertext);
@@ -8,8 +9,12 @@ pub fn frequency_analysis(ciphertext: String) -> String {
     for i in 0..letter_frequency.len() {
         let cipher_character: char = helper::get_next_most_frequent(&letter_frequency);
         letter_frequency.remove(&cipher_character);
-        plaintext_chars =
-            helper::replace_all_occurances(&ciphertext, plaintext_chars, cipher_character, helper::EXPECTED_LETTER_FREQUENCY[i]);
+        plaintext_chars = helper::replace_all_occurances(
+            &ciphertext,
+            plaintext_chars,
+            cipher_character,
+            helper::EXPECTED_LETTER_FREQUENCY[i],
+        );
     }
 
     return plaintext_chars.iter().collect();

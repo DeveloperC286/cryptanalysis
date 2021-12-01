@@ -1,9 +1,8 @@
-extern crate pretty_env_logger;
-#[macro_use]
-extern crate log;
-
 #[macro_use]
 extern crate lazy_static;
+#[macro_use]
+extern crate log;
+extern crate pretty_env_logger;
 
 use std::fs;
 use std::process::exit;
@@ -38,7 +37,8 @@ fn main() {
     pretty_env_logger::init();
     let args = Args::from_args();
     info!("Performing frequency analysis upon '{}'.", args.input);
-    let mut plaintext: String = frequency_analysis::frequency_analysis(helper::read_file(&args.input));
+    let mut plaintext: String =
+        frequency_analysis::frequency_analysis(helper::read_file(&args.input));
     plaintext = dictionary::one_letter_word_dictionary_corrections(plaintext);
 
     if let Some(output) = args.output {

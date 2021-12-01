@@ -1,7 +1,8 @@
-use super::super::helper;
-use super::dictionary_helper;
 use std::collections::HashMap;
 use std::collections::HashSet;
+
+use super::super::helper;
+use super::dictionary_helper;
 
 lazy_static! {
     static ref ONE_LETTER_WORDS: HashMap<char, u32> = {
@@ -13,10 +14,16 @@ lazy_static! {
 }
 
 pub fn one_letter_word_dictionary_corrections(plaintext: String) -> String {
-    let one_letter_words_frequeny = dictionary_helper::calculate_word_frequeny_with_length(&plaintext, 1);
-    let (missing_one_letter_words, unexpected_one_letter_words_frequeny) = get_missing_one_letter_words(one_letter_words_frequeny);
+    let one_letter_words_frequeny =
+        dictionary_helper::calculate_word_frequeny_with_length(&plaintext, 1);
+    let (missing_one_letter_words, unexpected_one_letter_words_frequeny) =
+        get_missing_one_letter_words(one_letter_words_frequeny);
 
-    missing_one_letter_words_corrections(plaintext, missing_one_letter_words, unexpected_one_letter_words_frequeny)
+    missing_one_letter_words_corrections(
+        plaintext,
+        missing_one_letter_words,
+        unexpected_one_letter_words_frequeny,
+    )
 }
 
 fn missing_one_letter_words_corrections(
@@ -28,11 +35,19 @@ fn missing_one_letter_words_corrections(
     let unexpected_one_letter_words_frequeny_length = unexpected_one_letter_words_frequeny.len();
 
     for _i in 0..unexpected_one_letter_words_frequeny_length {
-        let next_most_frequent_unexpect_word = helper::get_next_most_frequent(&unexpected_one_letter_words_frequeny);
-        trace!("Next most frequent unexpected word is '{}'.", next_most_frequent_unexpect_word);
+        let next_most_frequent_unexpect_word =
+            helper::get_next_most_frequent(&unexpected_one_letter_words_frequeny);
+        trace!(
+            "Next most frequent unexpected word is '{}'.",
+            next_most_frequent_unexpect_word
+        );
 
-        let next_most_frequent_missing_word = get_next_most_frequent_missing_word(&missing_one_letter_words);
-        trace!("Next most frequent expected word is '{}'.", next_most_frequent_missing_word);
+        let next_most_frequent_missing_word =
+            get_next_most_frequent_missing_word(&missing_one_letter_words);
+        trace!(
+            "Next most frequent expected word is '{}'.",
+            next_most_frequent_missing_word
+        );
 
         trace!(
             "Switching the characters {} and {}.",
@@ -70,7 +85,9 @@ fn get_next_most_frequent_missing_word(missing_one_letter_words: &HashSet<char>)
     helper::get_next_most_frequent(&working_missing_one_letter_words_frequeny)
 }
 
-fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -> (HashSet<char>, HashMap<char, u32>) {
+fn get_missing_one_letter_words(
+    one_letter_words_frequeny: HashMap<char, u32>,
+) -> (HashSet<char>, HashMap<char, u32>) {
     let mut unexpected_one_letter_words_frequeny = HashMap::new();
     let mut missing_one_letter_words: HashSet<char> = ONE_LETTER_WORDS.keys().cloned().collect();
     let mut working_missing_one_letter_words_frequeny = one_letter_words_frequeny.clone();
@@ -82,7 +99,8 @@ fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -
     }
 
     for _i in 0..missing_one_letter_words_count {
-        let next_most_frequent_one_letter_word = helper::get_next_most_frequent(&working_missing_one_letter_words_frequeny);
+        let next_most_frequent_one_letter_word =
+            helper::get_next_most_frequent(&working_missing_one_letter_words_frequeny);
 
         if one_letter_words_hashset.contains(&next_most_frequent_one_letter_word) {
             missing_one_letter_words.remove(&next_most_frequent_one_letter_word);
@@ -103,10 +121,17 @@ fn get_missing_one_letter_words(one_letter_words_frequeny: HashMap<char, u32>) -
     }
 
     for (key, value) in unexpected_one_letter_words_frequeny.iter() {
-        trace!("'{}' word found but not expected with the frequeny {}.", key, value);
+        trace!(
+            "'{}' word found but not expected with the frequeny {}.",
+            key,
+            value
+        );
     }
 
-    (missing_one_letter_words, unexpected_one_letter_words_frequeny)
+    (
+        missing_one_letter_words,
+        unexpected_one_letter_words_frequeny,
+    )
 }
 
 #[cfg(test)]

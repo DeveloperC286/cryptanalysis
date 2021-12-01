@@ -1,5 +1,6 @@
-use super::*;
 use rstest::rstest;
+
+use super::*;
 
 #[rstest(
     key,

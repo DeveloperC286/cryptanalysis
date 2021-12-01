@@ -1,6 +1,7 @@
+use rstest::rstest;
+
 use super::super::helper;
 use super::*;
-use rstest::rstest;
 
 #[rstest(
     ciphertext_file,

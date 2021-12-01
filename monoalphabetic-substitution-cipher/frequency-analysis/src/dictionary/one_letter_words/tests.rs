@@ -1,5 +1,6 @@
-use super::*;
 use rstest::rstest;
+
+use super::*;
 
 #[rstest(
     plaintext,
@@ -50,7 +51,11 @@ fn test_missing_one_letter_words_corrections(
     expected_correction: String,
 ) {
     //when
-    let returned_correction = missing_one_letter_words_corrections(plaintext, missing_one_letter_words, missing_one_letter_words_frequeny);
+    let returned_correction = missing_one_letter_words_corrections(
+        plaintext,
+        missing_one_letter_words,
+        missing_one_letter_words_frequeny,
+    );
 
     //then
     assert_eq!(expected_correction, returned_correction);
@@ -91,7 +96,10 @@ fn test_get_missing_one_letter_words(
         get_missing_one_letter_words(one_letter_words_frequeny);
 
     //then
-    assert_eq!(expected_missing_one_letter_words, returned_missing_one_letter_words);
+    assert_eq!(
+        expected_missing_one_letter_words,
+        returned_missing_one_letter_words
+    );
     assert_eq!(
         expected_missing_one_letter_words_frequeny,
         returned_missing_one_letter_words_frequeny

@@ -1,6 +1,6 @@
-extern crate pretty_env_logger;
 #[macro_use]
 extern crate log;
+extern crate pretty_env_logger;
 
 use monoalphabetic_substitution_cipher_encipher::{encipher, invert_key};
 use std::fs;
