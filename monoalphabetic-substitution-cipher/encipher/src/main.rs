@@ -2,9 +2,10 @@
 extern crate log;
 extern crate pretty_env_logger;
 
-use monoalphabetic_substitution_cipher_encipher::{encipher, invert_key};
 use std::fs;
 use std::process::exit;
+
+use monoalphabetic_substitution_cipher_encipher::{encipher, invert_key};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
