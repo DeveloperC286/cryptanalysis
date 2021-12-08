@@ -9,7 +9,7 @@ monoalphabetic-substitution-encipher-formatting:
     - cd monoalphabetic-substitution-cipher/encipher
     # Check the monorepo is effected in the merge request or else skip the stage.
     - ${is_effected} --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" --effects-current-directory || exit 0
-    - cargo fmt --all -- --check
+    - cargo fmt --all -- --check --config=group_imports=StdExternalCrate
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
