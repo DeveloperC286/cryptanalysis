@@ -1,7 +1,9 @@
 # monoalphabetic_substitution_cipher_encipher
-[![pipeline status](https://img.shields.io/badge/Version-0.1.2-blue)](https://gitlab.com/DeveloperC/cryptanalysis/commits/master)
+[![Version](https://img.shields.io/badge/Version-0.1.2-blue)](https://gitlab.com/DeveloperC/cryptanalysis/commits/master)
+
 
 A rust implementation of a monoalphabetic substitution cipher.
+
 
 ## Installation
 Tested on Arch GNU/Linux
@@ -10,8 +12,8 @@ Tested on Arch GNU/Linux
     <li><b>cargo build --release</b> Compile the Rust code into an optimised binary, ready for usage.</li>
 </ul>
 
-## Arguments
 
+## Arguments
 key: String
 The path to a file containing the key to use in the substitution.
 
@@ -20,6 +22,7 @@ The path to a file containing the text to be used as input to the substitution.
 
 decipher: bool
 A flag to specify if the file content should be deciphered. Defaults to false.
+
 
 ## Example Usage
 Encipher The-Adventures-of-Sherlock-Holmes.plaintext with the key The-Adventures-of-Sherlock-Holmes.key and write the result to the file The-Adventures-of-Sherlock-Holmes.ciphertext.
