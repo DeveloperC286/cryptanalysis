@@ -3,6 +3,7 @@ stages:
   - conventional-commits-linting
   - formatting
   - linting
+  - version-badge-checking
   - compiling
   - unit-testing
 
