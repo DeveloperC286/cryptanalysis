@@ -65,7 +65,7 @@ monoalphabetic-substitution-encipher-compiling:
     - cargo build --verbose --workspace --no-default-features
   rules:
     - if: $CI_MERGE_REQUEST_ID
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 
 monoalphabetic-substitution-encipher-unit-testing:
@@ -83,4 +83,4 @@ monoalphabetic-substitution-encipher-unit-testing:
     - cargo test --verbose --workspace --no-default-features
   rules:
     - if: $CI_MERGE_REQUEST_ID
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
