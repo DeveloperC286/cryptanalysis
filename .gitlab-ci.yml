@@ -8,6 +8,10 @@ stages:
   - unit-testing
 
 
+variables:
+  SEMANTIC_VERSIONING_REGEX: "[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*"
+
+
 clean-git-history-checking:
   stage: clean-git-history-checking
   image: rust
