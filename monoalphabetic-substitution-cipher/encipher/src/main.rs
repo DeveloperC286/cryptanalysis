@@ -49,15 +49,13 @@ fn main() {
     let file_contents = read_file(&args.input);
     let key = validate_key(&args.key);
 
-    let subsituted_file_contents;
-
-    if args.decipher {
+    let subsituted_file_contents = if args.decipher {
         info!("Deciphering '{}' with the key '{}'.", args.input, args.key);
-        subsituted_file_contents = encipher(invert_key(key), file_contents);
+        encipher(invert_key(key), file_contents)
     } else {
         info!("Enciphering '{}' with the key '{}'.", args.input, args.key);
-        subsituted_file_contents = encipher(key, file_contents);
-    }
+        encipher(key, file_contents)
+    };
 
     if let Some(output) = args.output {
         info!("Writing output to '{}'.", output);
