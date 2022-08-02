@@ -1,5 +1,5 @@
 # monoalphabetic_substitution_cipher_encipher
-[![Version](https://img.shields.io/badge/Version-0.1.2-blue)](https://gitlab.com/DeveloperC/cryptanalysis/commits/master)
+[![Version](https://img.shields.io/badge/Version-0.1.2-blue)](https://gitlab.com/DeveloperC/cryptanalysis/-/releases)
 
 
 A rust implementation of a monoalphabetic substitution cipher.
