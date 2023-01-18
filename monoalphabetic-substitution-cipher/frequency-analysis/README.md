@@ -20,7 +20,7 @@ The path to a file containing the ciphertext to perform frequency analysis upon.
 ## Example Usage
 perform frequency analysis upon The-Adventures-of-Sherlock-Holmes.ciphertext and output the predicted plaintext to The-Adventures-of-Sherlock-Holmes.plaintext.
 
-```
+```sh
 monoalphabetic_substitution_cipher_frequency_analysis --input ../examples/The-Adventures-of-Sherlock-Holmes.ciphertext >>
 ../examples/The-Adventures-of-Sherlock-Holmes.plaintext
 ```
