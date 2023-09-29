@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 # For CLI parsing.
-structopt = "0.3.26"
+clap = { version = "4.4.6", features = ["derive"] }
 
 # For defining constants.
 lazy_static = "1.4.0"

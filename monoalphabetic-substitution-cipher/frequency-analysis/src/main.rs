@@ -7,28 +7,25 @@ extern crate pretty_env_logger;
 use std::fs;
 use std::process::exit;
 
-use structopt::StructOpt;
+use clap::Parser;
 
 mod dictionary;
 mod frequency_analysis;
 mod helper;
 
-#[derive(Debug, StructOpt)]
-#[structopt(
-    name = "frequency-analysis",
-    about = "A rust implementation of a frequency analysis technique upon monoalphabetic substitution ciphers."
-)]
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
 struct Args {
-    #[structopt(
-        short = "i",
-        long = "input",
+    #[arg(
+        short,
+        long,
         help = "The path to a file containing the ciphertext to perform frequency analysis upon."
     )]
     input: String,
 
-    #[structopt(
-        short = "o",
-        long = "output",
+    #[arg(
+        short,
+        long,
         help = "The path to a file containing the text output from the frequency analysis."
     )]
     output: Option<String>,
@@ -36,7 +33,7 @@ struct Args {
 
 fn main() {
     pretty_env_logger::init();
-    let args = Args::from_args();
+    let args = Args::parse();
     info!("Performing frequency analysis upon '{}'.", args.input);
     let mut plaintext: String =
         frequency_analysis::frequency_analysis(helper::read_file(&args.input));

@@ -5,38 +5,35 @@ extern crate pretty_env_logger;
 use std::fs;
 use std::process::exit;
 
+use clap::Parser;
 use monoalphabetic_substitution_cipher_encipher::{encipher, invert_key};
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
-#[structopt(
-    name = "monoalphabetic-substitution-cipher",
-    about = "A rust implementation of a monoalphabetic substitution cipher."
-)]
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
 struct Args {
-    #[structopt(
-        short = "k",
-        long = "key",
+    #[arg(
+        short,
+        long,
         help = "The path to a file containing the key to use in the substitution."
     )]
     key: String,
 
-    #[structopt(
-        short = "i",
-        long = "input",
+    #[arg(
+        short,
+        long,
         help = "The path to a file containing the text to be used as input to the substitution cipher."
     )]
     input: String,
 
-    #[structopt(
-        short = "o",
-        long = "output",
+    #[arg(
+        short,
+        long,
         help = "The path to write the output from the substitution cipher too."
     )]
     output: Option<String>,
 
-    #[structopt(
-        long = "decipher",
+    #[arg(
+        long,
         help = "A flag to specify if the input file's content should be deciphered instead of enciphered."
     )]
     decipher: bool,
@@ -44,7 +41,7 @@ struct Args {
 
 fn main() {
     pretty_env_logger::init();
-    let args = Args::from_args();
+    let args = Args::parse();
 
     let file_contents = read_file(&args.input);
     let key = validate_key(&args.key);
