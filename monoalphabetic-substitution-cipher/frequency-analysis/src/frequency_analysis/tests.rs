@@ -7,8 +7,8 @@ use super::*;
     ciphertext_file,
     expected_frequency_analysis_text_file,
     case(
-        "../examples/The-Adventures-of-Sherlock-Holmes.ciphertext",
-        "../examples/The-Adventures-of-Sherlock-Holmes.frequency-analysis"
+        "examples/The-Adventures-of-Sherlock-Holmes.ciphertext",
+        "examples/The-Adventures-of-Sherlock-Holmes.frequency-analysis"
     )
 )]
 fn test_frequency_analysis(ciphertext_file: &str, expected_frequency_analysis_text_file: &str) {
