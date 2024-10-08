@@ -6,7 +6,6 @@ env:
   # Forcing Earthly to use colours, to make reading output easier.
   FORCE_COLOR: 1
 
-
 jobs:
   formatting:
     name: Formatting
