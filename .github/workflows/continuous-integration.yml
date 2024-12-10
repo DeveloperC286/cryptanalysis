@@ -15,7 +15,7 @@ jobs:
         directory: [monoalphabetic-substitution-cipher/encipher, monoalphabetic-substitution-cipher/frequency-analysis]
         language: [rust, shell]
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
           version: v0.8.15
@@ -31,7 +31,7 @@ jobs:
         directory: [monoalphabetic-substitution-cipher/encipher, monoalphabetic-substitution-cipher/frequency-analysis]
         language: [rust, shell]
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
           version: v0.8.15
@@ -46,7 +46,7 @@ jobs:
       matrix:
         directory: [monoalphabetic-substitution-cipher/encipher, monoalphabetic-substitution-cipher/frequency-analysis]
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
           version: v0.8.15
@@ -61,7 +61,7 @@ jobs:
       matrix:
         directory: [monoalphabetic-substitution-cipher/encipher, monoalphabetic-substitution-cipher/frequency-analysis]
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
           version: v0.8.15
