@@ -17,7 +17,7 @@ alpine-base:
     # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
     ENV BASH_VERSION="5.2.26-r0"
     RUN apk add --no-cache bash=$BASH_VERSION
-    WORKDIR "/programming_exercises"
+    WORKDIR "/cryptanalysis"
 
 
 check-clean-git-history:
@@ -42,7 +42,7 @@ check-conventional-commits-linting:
 
 golang-base:
     FROM golang:1.22.1
-    WORKDIR "/programming_exercises"
+    WORKDIR "/cryptanalysis"
 
 
 yaml-formatting-base:
