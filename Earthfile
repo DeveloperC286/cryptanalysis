@@ -41,7 +41,7 @@ check-conventional-commits-linting:
 
 
 golang-base:
-    FROM golang:1.24.4@sha256:dc3de886034b72c0d916022e36986435b0692f3e7d14aa69e2c4d3f8d6b58a03
+    FROM golang:1.24.4@sha256:884849e632f7b90be1acd3293579dbf19595c582a202b98411c88fdb60a319f0
     WORKDIR "/cryptanalysis"
 
 
