@@ -90,5 +90,5 @@ fn validate_key(key: &str) -> Vec<char> {
         exit(1);
     }
 
-    return key.chars().collect();
+    key.chars().collect()
 }

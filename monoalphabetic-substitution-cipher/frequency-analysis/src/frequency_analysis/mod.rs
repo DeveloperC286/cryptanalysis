@@ -17,13 +17,13 @@ pub fn frequency_analysis(ciphertext: String) -> String {
         );
     }
 
-    return plaintext_chars.iter().collect();
+    plaintext_chars.iter().collect()
 }
 
 fn calculate_letter_frequency(ciphertext: &str) -> HashMap<char, u32> {
     let mut letter_frequency: HashMap<char, u32> = HashMap::new();
 
-    for (_index, character) in ciphertext.chars().enumerate() {
+    for character in ciphertext.chars() {
         if helper::ALPHABET.contains(&character) {
             let counter = letter_frequency.entry(character).or_insert(0);
             *counter += 1;
