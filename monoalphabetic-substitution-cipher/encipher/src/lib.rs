@@ -73,7 +73,7 @@ pub fn encipher(key: Vec<char>, file_contents: String) -> String {
         }
     }
 
-    return subsituting_file_contents.iter().collect();
+    subsituting_file_contents.iter().collect()
 }
 
 #[cfg(test)]

@@ -39,7 +39,7 @@ fn get_all_words(sentence: &str) -> Vec<String> {
 fn replace_all_non_alphabet(replacing: &str) -> String {
     let mut returning = String::from(replacing);
 
-    for (_index, character) in replacing.chars().enumerate() {
+    for character in replacing.chars() {
         if !helper::ALPHABET.contains(&character) && character != ' ' {
             returning = returning.replace(character, "");
         }
@@ -51,7 +51,7 @@ fn replace_all_non_alphabet(replacing: &str) -> String {
 fn remove_all_extra_spaces(replacing: String) -> String {
     let returning = replacing.trim();
     let regex = Regex::new(r"\s+").unwrap();
-    return regex.replace_all(returning, " ").into_owned();
+    regex.replace_all(returning, " ").into_owned()
 }
 
 #[cfg(test)]
