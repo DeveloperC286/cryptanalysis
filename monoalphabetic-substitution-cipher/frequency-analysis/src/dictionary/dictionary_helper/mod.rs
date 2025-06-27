@@ -18,7 +18,7 @@ pub fn calculate_word_frequeny_with_length(sentence: &str, length: usize) -> Has
     }
 
     for (key, value) in one_letter_words_frequeny.iter() {
-        trace!("Word '{}' was counted {} times.", key, value);
+        trace!("Word '{key}' was counted {value} times.");
     }
 
     one_letter_words_frequeny

@@ -37,22 +37,14 @@ fn missing_one_letter_words_corrections(
     for _i in 0..unexpected_one_letter_words_frequeny_length {
         let next_most_frequent_unexpect_word =
             helper::get_next_most_frequent(&unexpected_one_letter_words_frequeny);
-        trace!(
-            "Next most frequent unexpected word is '{}'.",
-            next_most_frequent_unexpect_word
-        );
+        trace!("Next most frequent unexpected word is '{next_most_frequent_unexpect_word}'.");
 
         let next_most_frequent_missing_word =
             get_next_most_frequent_missing_word(&missing_one_letter_words);
-        trace!(
-            "Next most frequent expected word is '{}'.",
-            next_most_frequent_missing_word
-        );
+        trace!("Next most frequent expected word is '{next_most_frequent_missing_word}'.");
 
         trace!(
-            "Switching the characters {} and {}.",
-            next_most_frequent_unexpect_word,
-            next_most_frequent_missing_word
+            "Switching the characters {next_most_frequent_unexpect_word} and {next_most_frequent_missing_word}."
         );
         predicted_plaintext = helper::replace_all_occurances(
             &plaintext,
@@ -117,15 +109,11 @@ fn get_missing_one_letter_words(
     }
 
     for missing_one_letter_word in missing_one_letter_words.iter() {
-        trace!("Missing expected word '{}'.", missing_one_letter_word);
+        trace!("Missing expected word '{missing_one_letter_word}'.");
     }
 
     for (key, value) in unexpected_one_letter_words_frequeny.iter() {
-        trace!(
-            "'{}' word found but not expected with the frequeny {}.",
-            key,
-            value
-        );
+        trace!("'{key}' word found but not expected with the frequeny {value}.");
     }
 
     (

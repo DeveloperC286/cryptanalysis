@@ -16,7 +16,7 @@ pub fn read_file(filename: &str) -> String {
     match fs::read_to_string(filename) {
         Result::Ok(file_content) => file_content.to_ascii_lowercase(),
         Result::Err(_error_message) => {
-            error!("Unable to read from the file {}.", filename);
+            error!("Unable to read from the file {filename}.");
             exit(1);
         }
     }
@@ -33,7 +33,7 @@ pub fn get_next_most_frequent(letter_frequency: &HashMap<char, u32>) -> char {
         }
     }
 
-    trace!("Next most frequent is '{}'.", cipher_character);
+    trace!("Next most frequent is '{cipher_character}'.");
     cipher_character
 }
 
@@ -43,7 +43,7 @@ pub fn replace_all_occurances(
     replacing: char,
     replace_with: char,
 ) -> Vec<char> {
-    trace!("Replacing '{}' with '{}'.", replacing, replace_with);
+    trace!("Replacing '{replacing}' with '{replace_with}'.");
     for (index, character) in orginal_copy.chars().enumerate() {
         if character == replacing {
             modifying_copy[index] = replace_with;
