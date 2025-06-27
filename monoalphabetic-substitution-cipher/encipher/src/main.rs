@@ -55,10 +55,10 @@ fn main() {
     };
 
     if let Some(output) = args.output {
-        info!("Writing output to '{}'.", output);
+        info!("Writing output to '{output}'.");
         write_file(&output, subsituted_file_contents);
     } else {
-        print!("{}", subsituted_file_contents);
+        print!("{subsituted_file_contents}");
     }
 }
 
@@ -66,7 +66,7 @@ fn read_file(filename: &str) -> String {
     match fs::read_to_string(filename) {
         Result::Ok(file_content) => file_content.to_ascii_lowercase(),
         Result::Err(_error_message) => {
-            error!("Unable to read from the file {}.", filename);
+            error!("Unable to read from the file {filename}.");
             exit(1);
         }
     }
@@ -76,7 +76,7 @@ fn write_file(filename: &str, content: String) {
     match fs::write(filename, content) {
         Result::Ok(_success_message) => (),
         Result::Err(_error_message) => {
-            error!("Unable to write the output to the file {}.", filename);
+            error!("Unable to write the output to the file {filename}.");
             exit(1);
         }
     }
