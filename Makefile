@@ -11,16 +11,12 @@ check-clean-git-history:
 	docker pull ghcr.io/developerc286/clean_git_history:$(CLEAN_GIT_HISTORY_VERSION)
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) ghcr.io/developerc286/clean_git_history:$(CLEAN_GIT_HISTORY_VERSION) $(FROM)
 
+# renovate: depName=ghcr.io/developerc286/conventional_commits_linter
+CONVENTIONAL_COMMITS_LINTER_VERSION=0.15.0@sha256:b631a3cdcbed28c8938a2a6b63e16ecfd0d7ff71c28e878815adf9183e1fb599
+
 check-conventional-commits-linting:
-	docker build -t check-conventional-commits-linting -f ci/check-conventional-commits-linting.Dockerfile .
-	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) check-conventional-commits-linting $(FROM)
-
-# renovate: depName=mvdan/shfmt
-SHFMT_VERSION=v3.11.0-alpine@sha256:394d755b6007056a2e6d7537ccdbdcfca01b9855ba91e99df0166ca039c9d422
-
-check-shell-formatting:
-	docker pull mvdan/shfmt:$(SHFMT_VERSION)
-	docker run --rm -v $(PWD):/workspace -w /workspace -u $(UID):$(GID) mvdan/shfmt:$(SHFMT_VERSION) --simplify --diff ./ci/*
+	docker pull ghcr.io/developerc286/conventional_commits_linter:$(CONVENTIONAL_COMMITS_LINTER_VERSION)
+	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) ghcr.io/developerc286/conventional_commits_linter:$(CONVENTIONAL_COMMITS_LINTER_VERSION) --allow-angular-type-only $(FROM)
 
 # renovate: depName=ghcr.io/google/yamlfmt
 YAMLFMT_VERSION=0.17.0@sha256:b4ebf4ff064f5bcf779ef4799dad1fc52542e137677699210aea2de2b270e97f
@@ -28,10 +24,6 @@ YAMLFMT_VERSION=0.17.0@sha256:b4ebf4ff064f5bcf779ef4799dad1fc52542e137677699210a
 check-yaml-formatting:
 	docker pull ghcr.io/google/yamlfmt:$(YAMLFMT_VERSION)
 	docker run --rm -v $(PWD):/workspace -u $(UID):$(GID) ghcr.io/google/yamlfmt:$(YAMLFMT_VERSION) -verbose -lint -dstar .github/workflows/*
-
-fix-shell-formatting:
-	docker pull mvdan/shfmt:$(SHFMT_VERSION)
-	docker run --rm -v $(PWD):/workspace -w /workspace -u $(UID):$(GID) mvdan/shfmt:$(SHFMT_VERSION) --simplify --write ./ci/*
 
 fix-yaml-formatting:
 	docker pull ghcr.io/google/yamlfmt:$(YAMLFMT_VERSION)
