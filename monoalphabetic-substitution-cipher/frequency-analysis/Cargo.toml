@@ -22,7 +22,7 @@ regex = "1.9.5"
 
 [dev-dependencies]
 # For parameterized testing.
-rstest = "=0.25.0"
+rstest = "=0.26.1"
 
 
 [profile.release]
