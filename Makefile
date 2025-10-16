@@ -22,7 +22,7 @@ check-conventional-commits-linting:
 	docker run $(DOCKER_RUN_WRITE_OPTS) ghcr.io/developerc286/conventional_commits_linter:$(CONVENTIONAL_COMMITS_LINTER_VERSION) --type angular $(FROM)
 
 # renovate: depName=ghcr.io/google/yamlfmt
-YAMLFMT_VERSION=0.18.0@sha256:00c2a5154b5a3c81f99ebd5d295de512c41633219c208aea69139ea36f27015d
+YAMLFMT_VERSION=0.18.1@sha256:79474d990f38705aa4ae46961e8b68082ddc88fde62e2f275fcea40c1e05018f
 
 .PHONY: check-yaml-formatting
 check-yaml-formatting:
