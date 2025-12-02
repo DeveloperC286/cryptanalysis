@@ -12,7 +12,7 @@ jobs:
         language: [rust, shell]
     steps:
       - name: Checkout code.
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Check formatting.
         run: cd "${{ matrix.directory}}" && make check-${{ matrix.language }}-formatting
   linting:
@@ -24,7 +24,7 @@ jobs:
         language: [rust]
     steps:
       - name: Checkout code.
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Check linting.
         run: cd "${{ matrix.directory}}" && make check-${{ matrix.language }}-linting
   compile:
@@ -35,7 +35,7 @@ jobs:
         directory: [monoalphabetic-substitution-cipher/encipher, monoalphabetic-substitution-cipher/frequency-analysis]
     steps:
       - name: Checkout code.
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Compile.
         run: cd "${{ matrix.directory}}" && make compile
   unit-test:
@@ -46,6 +46,6 @@ jobs:
         directory: [monoalphabetic-substitution-cipher/encipher, monoalphabetic-substitution-cipher/frequency-analysis]
     steps:
       - name: Checkout code.
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Unit test.
         run: cd "${{ matrix.directory}}" && make unit-test
