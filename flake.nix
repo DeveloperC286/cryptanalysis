@@ -14,17 +14,10 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          # Disable all Nix hardening flags to prevent interference with Cargo builds.
-          # These flags are designed for C/C++ and can cause issues with:
-          # - MUSL builds (fortify adds glibc-specific functions)
-          # - Crates that vendor C libraries (e.g., git2 vendoring libgit2)
-          # Rust already provides memory safety, so these hardening flags provide
-          # minimal benefit while causing build problems.
-          hardeningDisable = [ "all" ];
-
           buildInputs = [
-            # GitHub Action Workflows.
+            # YAML formatting.
             pkgs.yamlfmt
+            # GitHub Actions workflows linting.
             pkgs.actionlint
           ];
         };

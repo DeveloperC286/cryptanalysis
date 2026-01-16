@@ -4,6 +4,9 @@
     "config:best-practices"
   ],
   "automerge": true,
+  "github-actions": {
+    "enabled": false
+  },
   "nix": {
     "enabled": true,
     "lockFileMaintenance": {
@@ -12,22 +15,13 @@
       "commitMessageTopic": "Nix flake lock"
     }
   },
-  "customManagers": [
+  "packageRules": [
     {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/|\\.)Dockerfile$/",
-        "/(^|/)Dockerfile[^/]*$/"
+      "matchManagers": ["github-actions"],
+      "matchFileNames": [
+        ".github/workflows/rust-continuous-integration.yml"
       ],
-      "matchStringsStrategy": "recursive",
-      "matchStrings": [
-        "FROM\\s*.*?alpine[.:]?(?<alpineMajor>\\d+)\\.(?<alpineMinor>\\d+)(?:\\n|.)*",
-        "apk\\s+add\\s+(?:\\n|.)*?[^\\\\]\\n",
-        "(?<name>[^\\s=~]+)~?=(?<currentValue>[^\\s=]+)"
-      ],
-      "datasourceTemplate": "repology",
-      "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{name}}",
-      "versioningTemplate": "loose"
+      "enabled": true
     }
   ]
 }
