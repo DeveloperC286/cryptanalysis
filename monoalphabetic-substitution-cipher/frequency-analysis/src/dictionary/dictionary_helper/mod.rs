@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+use log::trace;
 use regex::Regex;
 
 use super::super::helper;

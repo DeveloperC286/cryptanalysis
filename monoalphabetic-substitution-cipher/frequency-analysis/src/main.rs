@@ -1,13 +1,11 @@
 #[macro_use]
 extern crate lazy_static;
-#[macro_use]
-extern crate log;
-extern crate pretty_env_logger;
 
 use std::fs;
 use std::process::exit;
 
 use clap::Parser;
+use log::{error, info};
 
 mod dictionary;
 mod frequency_analysis;

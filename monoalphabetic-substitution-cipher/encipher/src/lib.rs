@@ -1,10 +1,9 @@
 #[macro_use]
 extern crate lazy_static;
-#[macro_use]
-extern crate log;
-extern crate pretty_env_logger;
 
 use std::collections::HashMap;
+
+use log::trace;
 
 lazy_static! {
     static ref ALPHABET_MAP: HashMap<char, u32> = {

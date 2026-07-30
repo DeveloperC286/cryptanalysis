@@ -1,11 +1,8 @@
-#[macro_use]
-extern crate log;
-extern crate pretty_env_logger;
-
 use std::fs;
 use std::process::exit;
 
 use clap::Parser;
+use log::{error, info};
 use monoalphabetic_substitution_cipher_encipher::{encipher, invert_key};
 
 #[derive(Parser, Debug)]

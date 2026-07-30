@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+use log::trace;
+
 use super::helper;
 
 pub fn frequency_analysis(ciphertext: String) -> String {
