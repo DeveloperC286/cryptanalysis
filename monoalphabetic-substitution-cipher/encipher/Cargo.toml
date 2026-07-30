@@ -2,7 +2,7 @@
 name = "monoalphabetic_substitution_cipher_encipher"
 version = "0.1.2"
 authors = ["C <DeveloperC@protonmail.com>"]
-edition = "2021"
+edition = "2024"
 
 
 [dependencies]
