@@ -64,9 +64,7 @@ pub fn encipher(key: Vec<char>, file_contents: String) -> String {
             let i = ALPHABET_MAP.get(&character).unwrap() - 1;
             trace!(
                 "Changing letter {} at index {} to {}",
-                subsituting_file_contents[index],
-                index,
-                key[i as usize]
+                subsituting_file_contents[index], index, key[i as usize]
             );
             subsituting_file_contents[index] = key[i as usize];
         }
