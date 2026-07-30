@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+use log::trace;
+
 use super::super::helper;
 use super::dictionary_helper;
 
