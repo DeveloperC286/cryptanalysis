@@ -4,9 +4,6 @@
     "config:best-practices"
   ],
   "automerge": true,
-  "github-actions": {
-    "enabled": false
-  },
   "nix": {
     "enabled": true,
     "lockFileMaintenance": {
@@ -17,6 +14,13 @@
   },
   "packageRules": [
     {
+      // The GitHub Actions workflows are managed by Copier, so updating them
+      // via Renovate causes conflicts with the Copier template updates.
+      "matchManagers": ["github-actions"],
+      "enabled": false
+    },
+    {
+      // Except this workflow, which is not managed by Copier.
       "matchManagers": ["github-actions"],
       "matchFileNames": [
         ".github/workflows/rust-continuous-integration.yml"
