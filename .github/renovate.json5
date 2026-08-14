@@ -12,10 +12,12 @@
       "commitMessageTopic": "Nix flake lock"
     }
   },
+  // Order matters. applyPackageRules() merges each matching rule over the
+  // previous one, so the last match wins: the broad disable must come first
+  // and the narrow allowlist second.
   "packageRules": [
     {
-      // The GitHub Actions workflows are managed by Copier, so updating them
-      // via Renovate causes conflicts with the Copier template updates.
+      // Copier owns these workflows; Renovate updates would fight the template.
       "matchManagers": ["github-actions"],
       "enabled": false
     },
